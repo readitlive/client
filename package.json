@@ -1,0 +1,38 @@
+{
+  "name": "readitlive-client",
+  "version": "0.1.0",
+  "devDependencies": {
+    "browserify": "~4.1.5",
+    "coffeeify": "^0.7.0",
+    "watchify": "^1.0.2",
+    "reactify": "^0.14.0",
+    "jest-cli": "^0.1.18",
+    "coffee-script": "^1.7.1"
+  },
+  "description": "readitlive.net client",
+  "main": "Gruntfile.js",
+  "dependencies": {
+    "react": "~0.11.0"
+  },
+  "scripts": {
+    "test": "jest",
+    "watch-js":  "watchify -t coffeeify --extension='.coffee' -t reactify --extension='.jsx' dev/components/app.jsx -o public/build/app.js -dv",
+    "watch-css":  "stylus -w dev/styles --out public/build/styles",
+    "watch": "npm run watch-js & npm run watch-css"
+  },
+  "jest": {
+    "scriptPreprocessor": "jestPreprocessor.js",
+    "testFileExtensions": ["coffee", "js"],
+    "moduleFileExtensions": ["js", "json", "coffee", "litcoffee", "coffee.md"],
+    "unmockedModulePathPatterns": ["react", "es6-promise"]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/readitlive/client"
+  },
+  "author": "Roger Goldfinger",
+  "bugs": {
+    "url": "https://github.com/readitlive/client/issues"
+  },
+  "homepage": "https://github.com/readitlive/client"
+}

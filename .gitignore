@@ -1,0 +1,8 @@
+node_modules/*
+public/build/*
+pack/*
+*.log
+.DS_Store
+
+peg/tmp.js
+
