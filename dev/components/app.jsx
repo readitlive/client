@@ -4,8 +4,9 @@
 
 window.React = require('react');
 
-var Navbar = require('./navbar');
-var Post   = require('./post');
+var Navbar  = require('./navbar');
+var Comment = require('./comment');
+var Post    = require('./post');
 
 var App = React.createClass({
   render: function() {
@@ -21,6 +22,7 @@ var App = React.createClass({
     return (
       <div>
         <Navbar navbarData={dummyHeader}/>
+        <Comment />
         {postNodes}
       </div>
     );

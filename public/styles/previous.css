@@ -55,6 +55,10 @@ body {
  background-color: #FFFBFF;
 }
 
+#comments-form {
+  margin-bottom: 100px;
+}
+
 .comment-avatar {
  padding: 5px;
 }
