@@ -8,7 +8,7 @@ var Navbar = React.createClass({
       <nav className="navbar navbar-default" role="navigation">
         <div className="container-fluid">
           <Header headerData={this.props.navbarData.headerData}/>
-          <UserOptions isLive={this.props.navbarData.isLive}/>
+          <UserOptions isLive={this.props.navbarData.isLive} handleLogin={this.props.handleLogin} />
         </div>
       </nav>
     );
@@ -18,7 +18,6 @@ var Navbar = React.createClass({
 var Header = React.createClass({
   render: function() {
     var currentEvent = this.props.headerData.currentEvent || '';
-
     return (
       <div className="navbar-header">
         <a className="navbar-brand">{this.props.headerData.brand}</a>
@@ -61,7 +60,7 @@ var UserOptions = React.createClass({
   	    	</li>
 
           <li className="navbar-text">
-            <UserLogin />
+            <UserLogin userLogin={this.props.handleLogin} />
           </li>
         </ul>
       </div>
@@ -71,11 +70,16 @@ var UserOptions = React.createClass({
 
 var UserLogin = React.createClass({
   render: function() {
+    console.log(this.props);
     return (
-      <div>
+      <div onClick={this.handleLogin}>
         <a>sign in/up</a>
       </div>
     );
+  },
+
+  handleLogin: function() {
+    this.props.userLogin();
   }
 });
 
