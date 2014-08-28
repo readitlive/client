@@ -1,6 +1,6 @@
 node_modules/*
+public/build/styles/app.css
 public/build/app.js
-public/build/styles/app/css
 pack/*
 *.log
 .DS_Store
