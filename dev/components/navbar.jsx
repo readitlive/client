@@ -2,6 +2,8 @@
  * @jsx React.DOM
  */
 
+var UserBox = require('./login');
+
 var Navbar = React.createClass({
   render: function() {
     return (
@@ -60,7 +62,7 @@ var UserOptions = React.createClass({
   	    	</li>
 
           <li className="navbar-text">
-            <UserLogin userLogin={this.props.handleLogin} />
+            <UserBox userLogin={this.props.handleLogin} />
           </li>
         </ul>
       </div>
@@ -68,19 +70,5 @@ var UserOptions = React.createClass({
   }
 });
 
-var UserLogin = React.createClass({
-  render: function() {
-    console.log(this.props);
-    return (
-      <div onClick={this.handleLogin}>
-        <a>sign in/up</a>
-      </div>
-    );
-  },
-
-  handleLogin: function() {
-    this.props.userLogin();
-  }
-});
 
 module.exports = Navbar;
