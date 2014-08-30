@@ -10,7 +10,7 @@ var Navbar = React.createClass({
       <nav className="navbar navbar-default" role="navigation">
         <div className="container-fluid">
           <Header headerData={this.props.navbarData.headerData}/>
-          <UserOptions isLive={this.props.navbarData.isLive} handleLogin={this.props.handleLogin} />
+          <UserOptions isLive={this.props.navbarData.isLive} user={this.props.user} />
         </div>
       </nav>
     );
@@ -24,7 +24,6 @@ var Header = React.createClass({
       <div className="navbar-header">
         <a className="navbar-brand">{this.props.headerData.brand}</a>
         <h4 className="navbar-text hidden-xs">{currentEvent}</h4>
-
         <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
           <span className="sr-only">Toggle navigation</span>
           <span className="icon-bar"></span>
@@ -39,7 +38,6 @@ var Header = React.createClass({
 var UserOptions = React.createClass({
   render: function() {
     var isLive = this.props.isLive ? 'Live' : 'Event Ended';
-
     return (
       <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul className="nav navbar-nav navbar-right">
@@ -62,7 +60,7 @@ var UserOptions = React.createClass({
   	    	</li>
 
           <li className="navbar-text">
-            <UserBox userLogin={this.props.handleLogin} />
+            <UserBox user={this.props.user}/>
           </li>
         </ul>
       </div>

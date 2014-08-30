@@ -144,21 +144,18 @@ var Login = React.createClass({
     this.setState({
       signup: true
     })
-
   },
-
 
   handleLogin: function() {
     var username = this.refs.username.getDOMNode().value;
     var password =  this.refs.password.getDOMNode().value;
     LoginActions.loginUser(username, password);
-
   },
+
   handleSignup: function() {
     var username = this.refs.username.getDOMNode().value;
     var password =  this.refs.password.getDOMNode().value;
     LoginActions.signupUser(username, password);
-
   },
 
 });

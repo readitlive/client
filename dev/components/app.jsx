@@ -9,19 +9,16 @@ var Comment = require('./comment');
 var Post    = require('./post');
 
 var App = React.createClass({
-  render: function() {
-
-    var isAuthenticated = dummyAuthentication;
-
-    if (isAuthenticated) {
-      var comment = <Comment />
+  getInitialState: function() {
+    return {
+      user: dummyUser,
+      postData: dummyPostData,
+      header: dummyHeader
     }
+  },
 
-    var handleLogin = function() {
-      console.log('yolo');
-    };
-
-    var postNodes = dummyPostData.map(function(post) {
+  render: function() {
+    var postNodes = this.state.postData.map(function(post) {
       return (
         <div>
           <Post metaData={post.metaData} text={post.text} />
@@ -29,17 +26,28 @@ var App = React.createClass({
       );
     }.bind(this));
 
+    var isAuthenticated = function() {
+      if (this.state.user) {
+        return (
+          <div>
+            <Comment />
+          </div>
+        );
+      }
+    }.bind(this);
+
     return (
       <div>
-        <Navbar navbarData={dummyHeader} handleLogin={handleLogin}/>
-        {comment}
+        <Navbar navbarData={this.state.header} user={this.state.user} />
+        {isAuthenticated()}
         {postNodes}
       </div>
     );
   }
 });
 
-var dummyAuthentication = false;
+
+var dummyUser = null;
 
 var dummyPostData = [
   {
