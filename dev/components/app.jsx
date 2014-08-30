@@ -56,6 +56,7 @@ var App = React.createClass({
   }
 });
 
+// var dummyUser = null;
 
 var dummyUser = {
   username: 'bob',

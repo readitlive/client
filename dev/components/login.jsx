@@ -22,14 +22,8 @@ var UserBox = React.createClass({
         <Login />
       );
     } else {
-      var avatar = this.props.user.avatarUrl || 'http://higoodbye.com/assets/img/default-avatar.jpg';
       return (
-        <li>
-          <img className="img-responsive nava-ava" src={avatar} />
-          <div className="navbar-text navbar-user">
-            <a className="login-text">{this.props.user.username}</a>
-          </div>
-        </li>
+        <User user={this.props.user}/>
       );
     }
   },
@@ -160,6 +154,94 @@ var Login = React.createClass({
   },
 
 });
+
+
+var User = React.createClass({
+  getInitialState: function() {
+    return {
+      expanded: false,
+      avatarAdd: false
+    };
+  },
+  render: function () {
+    var avatar = this.props.user.avatarUrl || 'http://higoodbye.com/assets/img/default-avatar.jpg';
+    var dropdown;
+
+    if (this.state.expanded) {
+
+      dropdown = (
+        <div className="login-dropdown">
+          <div>
+            <button
+              className="btn btn-primary btn-sm margin-10"
+              onClick={this.handleLogout}>
+                Logout
+            </button>
+            <button
+              className="btn btn-default btn-sm"
+              onClick={this.expandToggle}>
+                Cancel
+            </button>
+            <button
+              className="btn btn-primary btn-sm margin-10"
+              onClick={this._onAddAvatarClick}>
+                Add/Change Avatar
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    if (this.state.avatarAdd & this.state.expanded) {
+      dropdown = (
+        <div className="login-dropdown">
+          <h4 className="margin-0">Upload new avatar:</h4>
+          <input type="file" class="btn" id="avatar-upload-file" />
+          <button
+            className="btn btn-default btn-sm"
+            onClick={this.expandToggle}>
+              Cancel
+          </button>
+
+        </div>
+      );
+    }
+
+
+    return (
+      <li>
+        <div onClick={this.expandToggle}>
+          <img className="img-responsive nava-ava" src={avatar} />
+          <div className="navbar-text navbar-user">
+            <a className="login-text" >
+              {this.props.user.username}
+            </a>
+          </div>
+        </div>
+        {dropdown}
+      </li>
+      );
+  },
+
+  expandToggle: function () {
+    this.setState({
+      expanded: !this.state.expanded,
+      avatarAdd: false
+    });
+  },
+
+  handleLogout: function() {
+    LoginActions.logoutUser();
+  },
+
+  _onAddAvatarClick: function () {
+    this.setState({
+      avatarAdd: true
+    });
+  }
+
+});
+
 
 
 module.exports = UserBox;

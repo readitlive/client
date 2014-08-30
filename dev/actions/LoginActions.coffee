@@ -1,4 +1,4 @@
-constants = require('../constants/constants').ActionTypes
+constants = require('../constants/constants')
 AppDispatcher = require('../dispatchers/appDispatcher')
 ApiHelper = require('../helpers/ApiHelper')
 
