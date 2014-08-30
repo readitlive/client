@@ -25,11 +25,9 @@ var App = React.createClass({
     if (isAuthenticated) {
       var comment = <Comment />
     }
+  },
 
-    var handleLogin = function() {
-      console.log('yolo');
-    };
-
+  render: function() {
     var postNodes = this.state.postData.map(function(post) {
       return (
         <div>
@@ -38,17 +36,26 @@ var App = React.createClass({
       );
     }.bind(this));
 
+    var isAuthenticated = function() {
+      if (this.state.user) {
+        return (
+          <div>
+            <Comment />
+          </div>
+        );
+      }
+    }.bind(this);
+
     return (
       <div>
-        <Navbar navbarData={this.state.header} handleLogin={handleLogin} user={this.state.user}/>
-        {comment}
+        <Navbar navbarData={this.state.header} user={this.state.user} />
+        {isAuthenticated()}
         {postNodes}
       </div>
     );
   }
 });
 
-var dummyAuthentication = false;
 
 var dummyUser = {
   username: 'bob',
