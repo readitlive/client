@@ -10,7 +10,7 @@ var Navbar = React.createClass({
       <nav className="navbar navbar-default" role="navigation">
         <div className="container-fluid">
           <Header headerData={this.props.navbarData.headerData}/>
-          <UserOptions isLive={this.props.navbarData.isLive} handleLogin={this.props.handleLogin} />
+          <UserOptions isLive={this.props.navbarData.isLive} handleLogin={this.props.handleLogin} user={this.props.user}/>
         </div>
       </nav>
     );
@@ -61,9 +61,8 @@ var UserOptions = React.createClass({
   	    		<span className="label label-default navbar-text">{isLive}</span>
   	    	</li>
 
-          <li className="navbar-text">
-            <UserBox userLogin={this.props.handleLogin} />
-          </li>
+          <UserBox userLogin={this.props.handleLogin} user={this.props.user}/>
+
         </ul>
       </div>
     );

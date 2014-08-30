@@ -19,6 +19,15 @@
 .navbar-default .navbar-brand:focus {
   color: #333;
 }
+.nava-ava {
+  height: 50px;
+  padding: 0px;
+  border-radius: 3px;
+  display: inline-block;
+}
+.navbar-user {
+  display: inline-block;
+}
 .login-text {
   color: #63b7ff;
 }

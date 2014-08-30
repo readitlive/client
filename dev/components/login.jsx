@@ -17,7 +17,6 @@ var UserBox = React.createClass({
 
   render: function() {
 
-
     if (!this.props.user) {
       return (
         <Login />
@@ -25,10 +24,12 @@ var UserBox = React.createClass({
     } else {
       var avatar = this.props.user.avatarUrl || 'http://higoodbye.com/assets/img/default-avatar.jpg';
       return (
-        <div>
-          <img className="img-responsive avatar-pic" height="80" width="80" src={avatar} />
-          <div></div>
-        </div>
+        <li>
+          <img className="img-responsive nava-ava" src={avatar} />
+          <div className="navbar-text navbar-user">
+            <a className="login-text">{this.props.user.username}</a>
+          </div>
+        </li>
       );
     }
   },
@@ -125,10 +126,10 @@ var Login = React.createClass({
     }
 
     return (
-      <div>
+      <li className="navbar-text">
         <a className="login-text" onClick={this.expandToggle}>Sign in/up</a>
         {dropdown}
-      </div>
+      </li>
       );
 
   },

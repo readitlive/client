@@ -9,6 +9,15 @@ var Comment = require('./comment');
 var Post    = require('./post');
 
 var App = React.createClass({
+
+  getInitialState: function () {
+    return {
+      user: dummyUser,
+      postData: dummyPostData,
+      header: dummyHeader
+    };
+  },
+
   render: function() {
 
     var isAuthenticated = dummyAuthentication;
@@ -21,7 +30,7 @@ var App = React.createClass({
       console.log('yolo');
     };
 
-    var postNodes = dummyPostData.map(function(post) {
+    var postNodes = this.state.postData.map(function(post) {
       return (
         <div>
           <Post metaData={post.metaData} text={post.text} />
@@ -31,7 +40,7 @@ var App = React.createClass({
 
     return (
       <div>
-        <Navbar navbarData={dummyHeader} handleLogin={handleLogin}/>
+        <Navbar navbarData={this.state.header} handleLogin={handleLogin} user={this.state.user}/>
         {comment}
         {postNodes}
       </div>
@@ -40,6 +49,12 @@ var App = React.createClass({
 });
 
 var dummyAuthentication = false;
+
+var dummyUser = {
+  username: 'bob',
+  eventAdmin: true,
+  avatarUrl: 'http://liveblogphotos.s3-us-west-2.amazonaws.com/c1b8987d-9a4a-4f32-b8db-86e5e3e1a662.jpeg'
+};
 
 var dummyPostData = [
   {
