@@ -6,7 +6,7 @@ var Navbar = require('./navbar');
 var Comment = require('./comment');
 var Post = require('./post');
 
-var App = React.createClass({
+var WriteApp = React.createClass({
 
   getInitialState: function () {
     return {
@@ -38,7 +38,7 @@ var App = React.createClass({
       if (this.state.user) {
         return (
           <div>
-            <Comment />
+            <div />
           </div>
         );
       }
@@ -53,8 +53,6 @@ var App = React.createClass({
     );
   }
 });
-
-// var dummyUser = null;
 
 var dummyUser = {
   username: 'bob',
@@ -83,14 +81,4 @@ var dummyPostData = [
 
 var dummyHeader = {headerData: { brand: 'Live Update Guy', currentEvent: 'Vuelta a España 2014: Stage 4: Mairena del Alcor to Córdoba, 164.7km'}, isLive: 'true' };
 
-
-// Init
-
-LoginStore.init();
-
-React.renderComponent(
-  <App />,
-  document.getElementById('app')
-);
-
-module.exports = App;
+module.exports = WriteApp;

@@ -2,39 +2,37 @@
   "name": "readitlive-client",
   "version": "0.1.0",
   "devDependencies": {
-    "jest-cli": "^0.1.18",
+    "jest-cli": "^0.4.0",
     "webpack": "^1.7.3",
     "webpack-dev-server": "^1.6.5",
-    "jsx-loader": "^0.11.2"
+    "jsx-loader": "*"
   },
   "description": "readitlive.net client",
   "main": "Gruntfile.js",
   "dependencies": {
     "react": "~0.13.0",
-    "es6-promise": "^1.0.0",
+    "es6-promise": "^2.0.1",
     "react-router": "~0.13.2",
-    "ramda": "^0.13.0"
+    "ramda": "^0.13.0",
+    "object-assign": "^2.0.0"
   },
   "scripts": {
     "test": "jest",
-    "serve": "webpack-dev-server --content-base --hot"
+    "serve": "webpack-dev-server --content-base public/ --hot"
   },
   "jest": {
-    "scriptPreprocessor": "jestPreprocessor.js",
     "testFileExtensions": [
-      "coffee",
       "js"
     ],
     "moduleFileExtensions": [
       "js",
-      "json",
-      "coffee",
-      "litcoffee",
-      "coffee.md"
+      "json"
     ],
     "unmockedModulePathPatterns": [
       "react",
-      "es6-promise"
+      "es6-promise",
+      "ramda",
+      "react-router"
     ]
   },
   "repository": {

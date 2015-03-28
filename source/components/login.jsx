@@ -1,3 +1,5 @@
+var React = require('react');
+
 var LoginStore = require('../stores/LoginStore');
 
 var LoginActions = require('../actions/LoginActions');

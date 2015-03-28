@@ -1,7 +1,11 @@
 module.exports = {
-  entry: './source/app.js',
+  entry: {
+    app: ['webpack/hot/dev-server', './source/app.js']
+  },
   output: {
-    filename: '/public/build/bundle.js'
+    path: './public/build',
+    publicPath: '/build/',
+    filename: 'bundle.js'
   },
   module: {
     loaders: [

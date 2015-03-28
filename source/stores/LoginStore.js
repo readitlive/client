@@ -1,4 +1,5 @@
-var merge = require('react').lib.merge;
+
+var assign = require('object-assign');
 var EventEmitter = require('events').EventEmitter;
 var AppDispatcher = require('../dispatchers/appDispatcher');
 var constants = require('../constants/constants');
@@ -29,7 +30,7 @@ var _logoutUser = function() {
   return window.fd_router.setRoute('/login');
 };
 
-var LoginStore = merge(EventEmitter.prototype, {
+var LoginStore = assign({}, EventEmitter.prototype, {
   init: function() {
     var authToken, exp, userData;
     authToken = window.localStorage.getItem('cg-auth-token');

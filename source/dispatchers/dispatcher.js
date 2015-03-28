@@ -22,13 +22,13 @@
  */
 
 var Promise = require('es6-promise').Promise;
-var merge = require('react').lib.merge;
+var assign = require('object-assign');
 
 var _callbacks = [];
 var _promises = [];
 
 var Dispatcher = function() {};
-Dispatcher.prototype = merge(Dispatcher.prototype, {
+Dispatcher.prototype = assign({}, Dispatcher.prototype, {
 
   /**
    * Register a Store's callback so that it may be invoked by an action.
@@ -75,7 +75,7 @@ Dispatcher.prototype = merge(Dispatcher.prototype, {
    *
    * Example usage where StoreB waits for StoreA:
    *
-   *   var StoreA = merge(EventEmitter.prototype, {
+   *   var StoreA = assign({}, EventEmitter.prototype, {
    *     // other methods omitted
    *
    *     dispatchIndex: Dispatcher.register(function(payload) {
@@ -83,7 +83,7 @@ Dispatcher.prototype = merge(Dispatcher.prototype, {
    *     })
    *   }
    *
-   *   var StoreB = merge(EventEmitter.prototype, {
+   *   var StoreB = assign({}, EventEmitter.prototype, {
    *     // other methods omitted
    *
    *     dispatchIndex: Dispatcher.register(function(payload) {
