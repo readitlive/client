@@ -1,14 +1,10 @@
-/**
- * @jsx React.DOM
- */
 
 var LoginStore = require('../stores/LoginStore');
+var React = require('react');
 
-window.React = require('react');
-
-var Navbar  = require('./navbar');
+var Navbar = require('./navbar');
 var Comment = require('./comment');
-var Post    = require('./post');
+var Post = require('./post');
 
 var App = React.createClass({
 
@@ -20,14 +16,14 @@ var App = React.createClass({
     };
   },
 
-  render: function() {
-
-    var isAuthenticated = dummyAuthentication;
-
-    if (isAuthenticated) {
-      var comment = <Comment />
-    }
-  },
+  // render: function() {
+  //
+  //   var isAuthenticated = dummyAuthentication;
+  //
+  //   if (isAuthenticated) {
+  //     var comment = <Comment />;
+  //   }
+  // },
 
   render: function() {
     var postNodes = this.state.postData.map(function(post) {
