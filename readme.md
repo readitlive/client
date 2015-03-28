@@ -12,7 +12,7 @@ npm install
 
 Usage
 -----
-start a static file server, and:
+???
 ```sh
-npm run watch
+???
 ```

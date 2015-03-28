@@ -2,24 +2,22 @@
   "name": "readitlive-client",
   "version": "0.1.0",
   "devDependencies": {
-    "browserify": "~4.1.5",
-    "coffeeify": "^0.7.0",
-    "watchify": "^1.0.2",
-    "reactify": "^0.14.0",
     "jest-cli": "^0.1.18",
-    "coffee-script": "^1.7.1"
+    "webpack": "^1.7.3",
+    "webpack-dev-server": "^1.6.5",
+    "jsx-loader": "^0.11.2"
   },
   "description": "readitlive.net client",
   "main": "Gruntfile.js",
   "dependencies": {
-    "react": "~0.11.0",
-    "es6-promise": "^1.0.0"
+    "react": "~0.13.0",
+    "es6-promise": "^1.0.0",
+    "react-router": "~0.13.2",
+    "ramda": "^0.13.0"
   },
   "scripts": {
     "test": "jest",
-    "watch-js": "watchify -t coffeeify --extension='.coffee' -t reactify --extension='.jsx' dev/components/app.jsx -o public/build/app.js -dv",
-    "watch-css": "stylus -w dev/styles --out public/build/styles",
-    "watch": "npm run watch-js & npm run watch-css"
+    "serve": "webpack-dev-server --content-base --hot"
   },
   "jest": {
     "scriptPreprocessor": "jestPreprocessor.js",
