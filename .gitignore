@@ -4,5 +4,3 @@ dev/*
 pack/*
 *.log
 .DS_Store
-
-peg/tmp.js

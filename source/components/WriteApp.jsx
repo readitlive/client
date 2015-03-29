@@ -6,6 +6,8 @@ var TopBar = require('./TopBar');
 var NewPost = require('./NewPost');
 var Post = require('./Post');
 
+require('./__styles__/App.styl');
+
 var WriteApp = React.createClass({
 
   getInitialState: function () {
