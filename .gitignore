@@ -1,6 +1,5 @@
 node_modules/*
-public/build/styles/app.css
-public/build/app.js
+public/build/bundle.js
 dev/*
 pack/*
 *.log

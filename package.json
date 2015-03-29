@@ -5,7 +5,10 @@
     "jest-cli": "^0.4.0",
     "webpack": "^1.7.3",
     "webpack-dev-server": "^1.6.5",
-    "jsx-loader": "*"
+    "jsx-loader": "*",
+    "stylus-loader": "^1.0.0",
+    "style-loader": "^0.9.0",
+    "css-loader": "^0.9.1"
   },
   "description": "readitlive.net client",
   "main": "Gruntfile.js",
