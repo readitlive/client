@@ -2,9 +2,9 @@
 var LoginStore = require('../stores/LoginStore');
 var React = require('react');
 
-var Navbar = require('./navbar');
-var Comment = require('./comment');
-var Post = require('./post');
+var TopBar = require('./TopBar');
+var NewPost = require('./NewPost');
+var Post = require('./Post');
 
 var WriteApp = React.createClass({
 
@@ -15,15 +15,6 @@ var WriteApp = React.createClass({
       header: dummyHeader
     };
   },
-
-  // render: function() {
-  //
-  //   var isAuthenticated = dummyAuthentication;
-  //
-  //   if (isAuthenticated) {
-  //     var comment = <Comment />;
-  //   }
-  // },
 
   render: function() {
     var postNodes = this.state.postData.map(function(post) {
@@ -38,7 +29,7 @@ var WriteApp = React.createClass({
       if (this.state.user) {
         return (
           <div>
-            <div />
+            <NewPost />
           </div>
         );
       }
@@ -46,7 +37,7 @@ var WriteApp = React.createClass({
 
     return (
       <div>
-        <Navbar navbarData={this.state.header} user={this.state.user} />
+        <TopBar navbarData={this.state.header} user={this.state.user} />
         {isAuthenticated()}
         {postNodes}
       </div>

@@ -1,5 +1,7 @@
 var React = require('react');
 
+require('./__styles__/Post.styl')
+
 var Post = React.createClass({
   render: function() {
     return (

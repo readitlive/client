@@ -1,8 +1,8 @@
 var React = require('react');
 
-var UserBox = require('./login');
+var UserBox = require('./UserBox');
 
-var Navbar = React.createClass({
+var TopBar = React.createClass({
   render: function() {
     return (
       <nav className="navbar navbar-default" role="navigation">
@@ -66,4 +66,4 @@ var UserOptions = React.createClass({
 });
 
 
-module.exports = Navbar;
+module.exports = TopBar;

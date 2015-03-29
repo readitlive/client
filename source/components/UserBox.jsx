@@ -198,7 +198,7 @@ var User = React.createClass({
       dropdown = (
         <div className="login-dropdown">
           <h4 className="margin-0">Upload new avatar:</h4>
-          <input type="file" class="btn" id="avatar-upload-file" />
+          <input type="file" className="btn" id="avatar-upload-file" />
           <button
             className="btn btn-default btn-sm"
             onClick={this.expandToggle}>

@@ -1,6 +1,6 @@
 var React = require('react');
 
-var Comment = React.createClass({
+var NewPost = React.createClass({
   render: function() {
       return (
         <div id="comments-form" className="row-fluid hidden-xs">
@@ -17,4 +17,4 @@ var Comment = React.createClass({
   }
 });
 
-module.exports = Comment;
+module.exports = NewPost;
