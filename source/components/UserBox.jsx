@@ -194,7 +194,7 @@ var User = React.createClass({
       );
     }
 
-    if (this.state.avatarAdd & this.state.expanded) {
+    if (this.state.avatarAdd && this.state.expanded) {
       dropdown = (
         <div className="login-dropdown">
           <h4 className="margin-0">Upload new avatar:</h4>

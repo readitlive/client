@@ -19,13 +19,13 @@ var WriteApp = React.createClass({
   },
 
   render: function() {
-    var postNodes = this.state.postData.map(function(post) {
+    var postNodes = this.state.postData.map( (post, i) => {
       return (
         <div>
-          <Post metaData={post.metaData} text={post.text} />
+          <Post metaData={post.metaData} text={post.text} key={i}/>
         </div>
       );
-    }.bind(this));
+    });
 
     var isAuthenticated = function() {
       if (this.state.user) {

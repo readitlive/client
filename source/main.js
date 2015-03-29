@@ -2,6 +2,8 @@ var React = require('react');
 var ReactRouter = require('react-router');
 var {DefaultRoute, Route} = ReactRouter;
 var LoginStore = require('./stores/LoginStore');
+var PostsStore = require('./stores/PostsStore');
+
 var WriteApp = require('./components/WriteApp');
 
 var stub = React.createClass({
@@ -19,6 +21,7 @@ var routes = (
 
 // Init
 LoginStore.init();
+PostsStore.init();
 
 ReactRouter.run(routes, function (Handler) {
   React.render(<Handler/>, document.body);

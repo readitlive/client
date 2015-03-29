@@ -19,7 +19,7 @@ var Post = React.createClass({
 
 var PostMeta = React.createClass({
   render: function() {
-    var avatar = this.props.metaData.avatarUrl || 'http://higoodbye.com/assets/img/default-avatar.jpg';
+    var avatar = this.props.metaData.avatarUrl || '/img/default-avatar.png';
 
     return (
       <div className="col-xs-2 col-md-offset-3 post-side">
