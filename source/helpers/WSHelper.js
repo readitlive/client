@@ -1,17 +1,25 @@
-var socket;
+var SockJS = require('sockjs-client');
+var sock;
 
 var WSHelper = {
   connect: function(callback) {
-    socket = new WebSocket('ws://localhost:3000/posts');
-    socket.onopen = function () {
-       console.log('socket connected');
+    sock = new SockJS('http://localhost:3080/ws');
+    sock.onopen = function() {
+        console.log('open');
     };
-    socket.onmessage = function (event) {
-       callback(event);
+    sock.onmessage = function(e) {
+        callback(JSON.parse(e.data));
     };
-    socket.onclose = function () {
-      console.log('disconnected socket');
+    sock.onclose = function() {
+        console.log('close');
     };
+
+    sock.onerror = function(err) {
+      console.log('socket error: ', err);
+    };
+    //
+    // sock.send('test');
+    // sock.close();
   }
 };
 

@@ -25,7 +25,7 @@ var PostsStore = assign({}, EventEmitter.prototype, {
     return this.removeListener(CHANGE_EVENT, callback);
   },
   getPosts: function() {
-    return _posts;
+    return _posts || [];
   }
 });
 

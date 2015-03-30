@@ -5,7 +5,8 @@ module.exports = {
   output: {
     path: './public/build',
     publicPath: '/build/',
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    sourceMapFilename: '[file].map'
   },
   module: {
     loaders: [
