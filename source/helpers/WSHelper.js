@@ -2,7 +2,7 @@ var SockJS = require('sockjs-client');
 var sock;
 
 var WSHelper = {
-  connect: function(callback) {
+  connect(callback) {
     sock = new SockJS('http://localhost:3080/ws');
     sock.onopen = function() {
         console.log('open');
@@ -20,6 +20,10 @@ var WSHelper = {
     //
     // sock.send('test');
     // sock.close();
+  },
+
+  send(post) {
+    sock.send(JSON.stringify(post));
   }
 };
 

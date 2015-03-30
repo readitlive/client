@@ -8,7 +8,7 @@ var PostsActions = require('../actions/PostsActions');
 
 var CHANGE_EVENT = 'change';
 
-var _posts = null;
+var _posts = [];
 
 var PostsStore = assign({}, EventEmitter.prototype, {
   init: function() {
@@ -34,10 +34,9 @@ PostsStore.dispatcherToken = AppDispatcher.register(function(payload) {
   action = payload.action;
   switch (action.actionType) {
     case constants.RECEIVE_POSTS:
-      _posts = action.data;
+      _posts = _posts.concat(action.data);
       PostsStore.emitChange();
       break;
-
   }
   return true;
 });
