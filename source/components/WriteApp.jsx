@@ -2,11 +2,10 @@ var React = require('react');
 var R = require('ramda');
 
 var LoginStore = require('../stores/LoginStore');
-var PostsStore = require('../stores/PostsStore');
 
 var TopBar = require('./TopBar');
 var NewPost = require('./NewPost');
-var Post = require('./Post');
+var Feed = require('./Feed');
 
 require('./__styles__/App.styl');
 
@@ -15,35 +14,11 @@ var WriteApp = React.createClass({
   getInitialState: function () {
     return {
       user: dummyUser,
-      postData: PostsStore.getPosts(),
       header: dummyHeader
     };
   },
 
-  componentDidMount: function() {
-    PostsStore.addChangeListener(this._onPostsChange);
-  },
-
-  componentWillUnmount: function() {
-    PostsStore.removeChangeListener(this._onPostsChange);
-  },
-
-  _onPostsChange() {
-    this.setState({postData: PostsStore.getPosts()});
-  },
-
   render: function() {
-    var postNodes;
-    if (this.state.postData) {
-      postNodes = R.map((post, i) => {
-        return (
-          <div>
-            <Post metaData={post.metaData} text={post.text} key={i}/>
-          </div>
-        );
-      }, this.state.postData);
-    }
-
     var isAuthenticated = function() {
       if (this.state.user) {
         return <NewPost />;
@@ -54,7 +29,7 @@ var WriteApp = React.createClass({
       <div>
         <TopBar navbarData={this.state.header} user={this.state.user} />
         {isAuthenticated()}
-        {postNodes}
+        <Feed />
       </div>
     );
   }

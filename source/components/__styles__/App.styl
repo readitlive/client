@@ -1,63 +1,74 @@
+body
+ background-color #f9f9f9
+
 h1, h2, h3, h4, h5, h6
     font-family:  AvenirNext-DemiBold, Helvetica, sans-serif
+.card
+  border-radius 2px
+  background-color #FFF
+  padding 18px
+  box-shadow: rgba(0, 0, 0, 0.156863) 0 2px 5px 0
 
-
-.navbar-default
+.top-bar
     /*background-color: #35262D; pink*/
     /*background-color: rgb(250, 187, 0);DeF yellow*/
-    background-color: #c41a18
-
+    background-color: #c41a18 // red
     border: 0
     border-radius: 0
     border-bottom: 1px solid #999
 
 
-
-.navbar-default .navbar-brand
+.top-bar
+  display flex
+  flex-direction row
+  justify-content space-around
+  .navbar-brand
     font-family:  AvenirNext-Bold, Helvetica, sans-serif
     font-size: 22px
     color: #222
-
-
-.navbar-default .navbar-text
+  .navbar-text
     font-family:  AvenirNext-DemiBold, Helvetica, sans-serif
-
     color: #333
+    text-overflow: ellipsis
+  .navbar-brand:hover, .navbar-brand:focus
+    color: #333
+  & > *
+    margin 8px 16px 0
 
+  .nava-ava
+    height: 50px
+    padding: 0px
+    border-radius: 3px
+    display: inline-block
 
-.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus
-  color: #333
+  .navbar-user
+    display: inline-block
 
-.nava-ava
-  height: 50px
-  padding: 0px
-  border-radius: 3px
-  display: inline-block
+  #avatar-upload-file
+    padding: 10px
 
-.navbar-user
-  display: inline-block
+  .login-dropdown
+    position: absolute
+    background-color: white
+    right: 20px
+    top: 30px
+    width: 200px
+    padding: 10px
+    z-index: 999
+    border-radius: 4px
+    border: 1px solid #CCC
 
-#avatar-upload-file
-  padding: 10px
+  .margin-10
+    margin: 10px
 
+  .margin-0
+    margin: 0
 
-.login-text
-  color: #63B7FF !important
-  padding: 0 !important
-
-.login-dropdown
-  position: absolute
-  background-color: white
-  right: 20px
-  top: 30px
-  width: 200px
-  padding: 10px
-  z-index: 999
-  border-radius: 4px
-  border: 1px solid #CCC
-
-.margin-10
-  margin: 10px
-
-.margin-0
-  margin: 0
+.NewPost
+  .container
+    display flex
+    flex-direction row
+    justify-content space-around
+  textarea
+    width 600px
+    height 100px

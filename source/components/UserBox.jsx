@@ -7,18 +7,17 @@ var LoginActions = require('../actions/LoginActions');
 var UserBox = React.createClass({
 
   //if the user is not logged in, show sign in/up
-  //
-
   // componentDidMount: function() {
   //   LoginStore.addChangeListener(this._onLoginChange);
   // },
-
   // componentWillUnmount: function() {
   //   LoginStore.removeChangeListener(this._onLoginChange);
   // },
+  // _onLoginChange: function () {
+  //   //
+  // }
 
   render: function() {
-
     if (!this.props.user) {
       return (
         <Login />
@@ -28,13 +27,7 @@ var UserBox = React.createClass({
         <User user={this.props.user}/>
       );
     }
-  },
-
-
-
-  // _onLoginChange: function () {
-  //   //
-  // }
+  }
 });
 
 var Login = React.createClass({
@@ -122,11 +115,11 @@ var Login = React.createClass({
     }
 
     return (
-      <li className="navbar-text">
-        <a className="login-text" onClick={this.expandToggle}>Sign in/up</a>
+      <a className="login-text" onClick={this.expandToggle}>
+        Sign in/up
         {dropdown}
-      </li>
-      );
+      </a>
+    );
 
   },
 
@@ -211,18 +204,16 @@ var User = React.createClass({
 
 
     return (
-      <li>
-        <div onClick={this.expandToggle}>
-          <img className="img-responsive nava-ava" src={avatar} />
-          <div className="navbar-text navbar-user">
-            <a className="login-text" >
-              {this.props.user.username}
-            </a>
-          </div>
+      <div onClick={this.expandToggle}>
+        <img className="img-responsive nava-ava" src={avatar} />
+        <div className="navbar-text navbar-user">
+          <a>
+            {this.props.user.username}
+          </a>
         </div>
         {dropdown}
-      </li>
-      );
+      </div>
+    );
   },
 
   expandToggle: function () {

@@ -5,13 +5,9 @@ require('./__styles__/Post.styl')
 var Post = React.createClass({
   render: function() {
     return (
-      <div className="row-fluid">
-        <div className="col-xs-12 post">
-          <div className="row-fluid">
-            <PostMeta metaData={this.props.metaData}/>
-            <PostText text={this.props.text}/>
-          </div>
-        </div>
+      <div className="row card post">
+        <PostMeta metaData={this.props.metaData}/>
+        <PostText text={this.props.text}/>
       </div>
     );
   }
@@ -20,14 +16,11 @@ var Post = React.createClass({
 var PostMeta = React.createClass({
   render: function() {
     var avatar = this.props.metaData.avatarUrl || '/img/default-avatar.png';
-
     return (
-      <div className="col-xs-2 col-md-offset-3 post-side">
+      <div className="two columns">
         <img className="img-responsive avatar-pic" height="80" width="80" src={avatar} />
-        <div className="hidden-xs">
-          <p className="post-meta">{this.props.metaData.author}</p>
-        </div>
-        <p className="post-meta post-meta-time">{this.props.metaData.timeEU}</p>
+        <p className="meta">{this.props.metaData.author}</p>
+        <p className="meta meta-time">{this.props.metaData.timeEU}</p>
       </div>
     );
   }
@@ -36,10 +29,8 @@ var PostMeta = React.createClass({
 var PostText = React.createClass({
   render: function() {
     return (
-      <div className="col-xs-10 col-md-7 no-padding">
-        <div className="post-body col-xs-12">
-          <pre className="post-body-text">{this.props.text}</pre>
-        </div>
+      <div className="ten columns body-text">
+        {this.props.text}
       </div>
     );
   }
