@@ -1,4 +1,5 @@
 var React = require('react');
+window.React = React;
 var ReactRouter = require('react-router');
 var {DefaultRoute, Route} = ReactRouter;
 var LoginStore = require('./stores/LoginStore');

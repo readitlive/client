@@ -7,15 +7,9 @@ var TopBar = React.createClass({
     var isLive = this.props.navbarData.isLive ? 'Live' : 'Event Ended';
     var currentEvent = this.props.navbarData.headerData.currentEvent || '';
     return (
-      <nav className="top-bar" role="navigation" style={{display: 'flex', 'flex-direction': 'row'}} >
+      <nav className="top-bar card" role="navigation">
         <a className="navbar-brand">{this.props.navbarData.headerData.brand}</a>
         <h5 className="navbar-text">{currentEvent}</h5>
-        <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-          <span className="sr-only">Toggle navigation</span>
-          <span className="icon-bar"></span>
-          <span className="icon-bar"></span>
-          <span className="icon-bar"></span>
-        </button>
         <form action="https://www.paypal.com/cgi-bin/webscr" method="post" className="navbar-text paypal-button" target="_blank">
           <input type="hidden" name="cmd" value="_donations" />
           <input type="hidden" name="business" value="charles@pelkey.com" />
