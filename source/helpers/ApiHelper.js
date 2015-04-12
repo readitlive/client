@@ -3,7 +3,7 @@ var LoginStore = require('../stores/LoginStore');
 module.exports = function(requestType, requestURL, data, callback) {
   var request, token;
   request = new XMLHttpRequest();
-  request.open(requestType, 'http://localhost:5000' + requestURL, true);
+  request.open(requestType, 'http://localhost:3000/api/' + requestURL, true);
   request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
   token = LoginStore.getAuthToken();
   if (token) {
@@ -17,7 +17,7 @@ module.exports = function(requestType, requestURL, data, callback) {
       return callback(request.status, request);
     }
   };
-  return request.onerror = function(err) {
+  request.onerror = function(err) {
     return callback(err, request);
   };
 };

@@ -2,6 +2,7 @@ var React = require('react');
 var R = require('ramda');
 
 var LoginStore = require('../stores/LoginStore');
+var PostsStore = require('../stores/PostsStore');
 
 var TopBar = require('./TopBar');
 var NewPost = require('./NewPost');
@@ -11,14 +12,18 @@ require('./__styles__/App.styl');
 
 var WriteApp = React.createClass({
 
-  getInitialState: function () {
+  getInitialState() {
     return {
       user: dummyUser,
       header: dummyHeader
     };
   },
 
-  render: function() {
+  componentWillMount() {
+    PostsStore.init();
+  },
+
+  render() {
     var isAuthenticated = function() {
       if (this.state.user) {
         return <NewPost />;
