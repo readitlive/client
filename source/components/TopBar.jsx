@@ -3,13 +3,21 @@ var React = require('react');
 var UserBox = require('./UserBox');
 
 var TopBar = React.createClass({
+  propTypes: {
+    event: React.PropTypes.object,
+    user: React.PropTypes.object
+  },
+
+  getDefaultProps() {
+    return {event: {}};
+  },
+
   render: function() {
-    var isLive = this.props.navbarData.isLive ? 'Live' : 'Event Ended';
-    var currentEvent = this.props.navbarData.headerData.currentEvent || '';
+    var isLive = this.props.event.isLive ? 'Live' : 'Event Ended';
     return (
       <nav className="top-bar card" role="navigation">
-        <a className="navbar-brand">{this.props.navbarData.headerData.brand}</a>
-        <h5 className="navbar-text">{currentEvent}</h5>
+        <a className="navbar-brand">Live Update Guy</a>
+        <h5 className="navbar-text">{this.props.event.eventTitle}</h5>
         <form action="https://www.paypal.com/cgi-bin/webscr" method="post" className="navbar-text paypal-button" target="_blank">
           <input type="hidden" name="cmd" value="_donations" />
           <input type="hidden" name="business" value="charles@pelkey.com" />

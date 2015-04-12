@@ -1,8 +1,9 @@
 var React = require('react');
 var R = require('ramda');
 
-var LoginStore = require('../stores/LoginStore');
+// var LoginStore = require('../stores/LoginStore');
 var PostsStore = require('../stores/PostsStore');
+var EventStore = require('../stores/EventStore');
 
 var TopBar = require('./TopBar');
 var NewPost = require('./NewPost');
@@ -11,6 +12,9 @@ var Feed = require('./Feed');
 require('./__styles__/App.styl');
 
 var WriteApp = React.createClass({
+  contextTypes: {
+    router: React.PropTypes.func
+  },
 
   getInitialState() {
     return {
@@ -20,7 +24,20 @@ var WriteApp = React.createClass({
   },
 
   componentWillMount() {
+    EventStore.init(this.context.router.getCurrentParams().eventId);
     PostsStore.init();
+  },
+
+  componentDidMount() {
+    EventStore.addChangeListener(this.handleChange);
+  },
+
+  componentWillUnmount() {
+    EventStore.removeChangeListener(this.handleChange);
+  },
+
+  handleChange() {
+    this.setState({event: EventStore.getEvent()});
   },
 
   render() {
@@ -32,7 +49,7 @@ var WriteApp = React.createClass({
 
     return (
       <div>
-        <TopBar navbarData={this.state.header} user={this.state.user} />
+        <TopBar event={this.state.event} user={this.state.user} />
         {isAuthenticated()}
         <Feed />
       </div>
