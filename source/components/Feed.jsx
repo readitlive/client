@@ -9,7 +9,7 @@ var Feed = React.createClass({
 
   getInitialState: function () {
     return {
-      postData: PostsStore.getPosts()
+      postsData: PostsStore.getPosts()
     };
   },
 
@@ -22,17 +22,17 @@ var Feed = React.createClass({
   },
 
   _onPostsChange() {
-    this.setState({postData: PostsStore.getPosts()});
+    this.setState({postsData: PostsStore.getPosts()});
   },
 
   render: function() {
     var postNodes;
-    if (this.state.postData) {
+    if (this.state.postsData) {
       postNodes = R.map((post, i) => {
         return (
-          <Post metaData={post.metaData} text={post.text} key={i}/>
+          <Post post={post} key={i}/>
         );
-      }, this.state.postData);
+      }, this.state.postsData);
     }
 
     return (

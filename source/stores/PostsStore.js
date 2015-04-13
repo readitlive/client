@@ -2,7 +2,8 @@ var assign = require('object-assign');
 var EventEmitter = require('events').EventEmitter;
 
 var AppDispatcher = require('../dispatchers/appDispatcher');
-var WSHelper = require('../helpers/WSHelper');
+// var WSHelper = require('../helpers/WSHelper');
+var API = require('../helpers/ApiHelper');
 var constants = require('../constants/constants');
 var PostsActions = require('../actions/PostsActions');
 
@@ -11,8 +12,9 @@ var CHANGE_EVENT = 'change';
 var _posts = [];
 
 var PostsStore = assign({}, EventEmitter.prototype, {
-  init: function() {
-    WSHelper.connect(PostsActions.receivePosts);
+  init: function(eventId) {
+    API('GET', 'event/' + eventId + '/entry', {}, PostsActions.receivePosts);
+    // WSHelper.connect(PostsActions.receivePosts);
   },
 
   emitChange: function() {

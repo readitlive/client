@@ -24,8 +24,9 @@ var WriteApp = React.createClass({
   },
 
   componentWillMount() {
-    EventStore.init(this.context.router.getCurrentParams().eventId);
-    PostsStore.init();
+    var eventId = this.context.router.getCurrentParams().eventId;
+    EventStore.init(eventId);
+    PostsStore.init(eventId);
   },
 
   componentDidMount() {
