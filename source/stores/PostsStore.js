@@ -1,5 +1,6 @@
 var assign = require('object-assign');
 var EventEmitter = require('events').EventEmitter;
+var R = require('ramda');
 
 var AppDispatcher = require('../dispatchers/appDispatcher');
 // var WSHelper = require('../helpers/WSHelper');
@@ -28,6 +29,9 @@ var PostsStore = assign({}, EventEmitter.prototype, {
     return this.removeListener(CHANGE_EVENT, callback);
   },
   getPosts: function() {
+    if (_posts.length) {
+      return R.reverse(_posts);
+    }
     return _posts || [];
   }
 });
@@ -41,7 +45,7 @@ PostsStore.dispatcherToken = AppDispatcher.register(function(payload) {
       PostsStore.emitChange();
       break;
     case constants.RECEIVE_POST:
-      _posts = _posts.push(action.data);
+      _posts.push(action.data);
       PostsStore.emitChange();
       break;
   }
