@@ -8,11 +8,14 @@ var EventActions = require('../actions/EventActions');
 
 var CHANGE_EVENT = 'change';
 
-var _event;
+var _event = {};
 
 var EventStore = assign({}, EventEmitter.prototype, {
   init: function(eventId) {
-    API('GET', 'event/' + eventId, undefined, EventActions.receiveEvent);
+    if (eventId !== _event._id) {
+      _event = {};
+      API('GET', 'event/' + eventId, undefined, EventActions.receiveEvent);
+    }
   },
 
   emitChange: function() {

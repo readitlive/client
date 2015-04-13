@@ -7,17 +7,17 @@ var Post = require('./Post');
 
 var Feed = React.createClass({
 
-  getInitialState: function () {
+  getInitialState() {
     return {
       postsData: PostsStore.getPosts()
     };
   },
 
-  componentDidMount: function() {
+  componentDidMount() {
     PostsStore.addChangeListener(this._onPostsChange);
   },
 
-  componentWillUnmount: function() {
+  componentWillUnmount() {
     PostsStore.removeChangeListener(this._onPostsChange);
   },
 
@@ -25,7 +25,7 @@ var Feed = React.createClass({
     this.setState({postsData: PostsStore.getPosts()});
   },
 
-  render: function() {
+  render() {
     var postNodes;
     if (this.state.postsData) {
       postNodes = R.map((post, i) => {

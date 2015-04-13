@@ -25,12 +25,22 @@ var WriteApp = React.createClass({
 
   componentWillMount() {
     var eventId = this.context.router.getCurrentParams().eventId;
+    this.setState({eventId});
     EventStore.init(eventId);
     PostsStore.init(eventId);
   },
 
   componentDidMount() {
     EventStore.addChangeListener(this.handleChange);
+  },
+
+  componentDidUpdate() {
+    var eventId = this.context.router.getCurrentParams().eventId;
+    if (eventId !== this.state.eventId) {
+      this.setState({eventId});
+      EventStore.init(eventId);
+      PostsStore.init(eventId);
+    }
   },
 
   componentWillUnmount() {

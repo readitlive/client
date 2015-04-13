@@ -13,6 +13,7 @@ var _posts = [];
 
 var PostsStore = assign({}, EventEmitter.prototype, {
   init: function(eventId) {
+    _posts = [];
     API('GET', 'event/' + eventId + '/entry', {}, PostsActions.receivePosts);
     // WSHelper.connect(PostsActions.receivePosts);
   },
