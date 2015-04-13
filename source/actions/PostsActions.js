@@ -1,31 +1,51 @@
 var constants = require('../constants/constants');
 var AppDispatcher = require('../dispatchers/appDispatcher');
-var WSHelper = require('../helpers/WSHelper');
-var LoginStore = require('../stores/LoginStore');
+var EventStore = require('../stores/EventStore');
+// var WSHelper = require('../helpers/WSHelper');
+var API = require('../helpers/ApiHelper');
+// var LoginStore = require('../stores/LoginStore');
 
 var PostActionsCreators = {
-  receivePosts(data) {
+  receivePosts(err, data) {
     return AppDispatcher.handleServerAction({
       actionType: constants.RECEIVE_POSTS,
       data: data
     });
   },
 
-  submit(postText) {
-    var user = LoginStore.getCurrentUser();
-    var data = {
-      metaData: {author: 'Forest', timeEU: 'ten minutes ago'},
-      text: postText
-    };
-    WSHelper.send([data]);
+  receivePost(err, data) {
+    return AppDispatcher.handleServerAction({
+      actionType: constants.RECEIVE_POST,
+      data: data
+    });
+  },
 
+  submit(postText) {
+    var timeNow = new Date();
+    var euh = timeNow.getUTCHours() + 2;
+    if (euh < 10 ) { euh = "0" + euh; }
+    var eum = timeNow.getUTCMinutes();
+    if (eum < 10 ) { eum = "0" + eum; }
+    var timeEUString = euh + ":" + eum + " CEST";
+
+    // var user = LoginStore.getCurrentUser();
+    var eventId = EventStore.getEvent()._id;
+    var data = {
+      postText: postText,
+      author: user.username,
+      eventId: eventId,
+      postIsComment: false,
+      avatarUrl: user.avatarUrl,
+      timeEU: timeEUString
+    };
+    API('POST', 'event/' + eventId, data, PostActionsCreators.receivePost);
   }
 };
 
 module.exports = PostActionsCreators;
 
 
-// {
-//   metaData: {author: 'Forest', timeEU: 'ten minutes ago'},
-//   text: 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar. The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made herself on the way. When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then'
-// },
+var user = {
+  name: 'CPelkey',
+  avatarUrl: 'http://liveblogphotos.s3-us-west-2.amazonaws.com/c1b8987d-9a4a-4f32-b8db-86e5e3e1a662.jpeg',
+};

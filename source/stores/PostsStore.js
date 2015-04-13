@@ -37,6 +37,10 @@ PostsStore.dispatcherToken = AppDispatcher.register(function(payload) {
       _posts = _posts.concat(action.data);
       PostsStore.emitChange();
       break;
+    case constants.RECEIVE_POST:
+      _posts = _posts.push(action.data);
+      PostsStore.emitChange();
+      break;
   }
   return true;
 });

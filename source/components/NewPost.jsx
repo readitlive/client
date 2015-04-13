@@ -6,9 +6,9 @@ require('./__styles__/NewPost.styl');
 var NewPost = React.createClass({
   handleSubmit: function(e) {
     e.preventDefault();
-    var post = this.refs.text.getDOMNode().value
-    if (post)
-      PostsActions.submit(post);
+    var entryText = this.refs.text.getDOMNode().value;
+    if (entryText)
+      PostsActions.submit(entryText);
   },
 
   render: function() {

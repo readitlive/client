@@ -1,7 +1,7 @@
 var React = require('react');
 var R = require('ramda');
 
-var LoginStore = require('../stores/LoginStore');
+// var LoginStore = require('../stores/LoginStore');
 var PostsStore = require('../stores/PostsStore');
 var Post = require('./Post');
 
