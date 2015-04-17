@@ -1,7 +1,7 @@
 var constants = require('../constants/constants');
 var AppDispatcher = require('../dispatchers/appDispatcher');
 var EventStore = require('../stores/EventStore');
-// var WSHelper = require('../helpers/WSHelper');
+var WSHelper = require('../helpers/WSHelper');
 var API = require('../helpers/ApiHelper');
 // var LoginStore = require('../stores/LoginStore');
 
@@ -18,6 +18,22 @@ var PostActionsCreators = {
       actionType: constants.RECEIVE_POST,
       data: data
     });
+  },
+
+  receiveUpdate(update) {
+    var {method, type, data} = update;
+    if (method === 'post' && type === 'Entry') {
+      return AppDispatcher.handleServerAction({
+        actionType: constants.RECEIVE_POST,
+        data: data
+      });
+    }
+    if (method === 'delete' && type === 'Entry') {
+      return AppDispatcher.handleServerAction({
+        actionType: constants.DELETE_POST,
+        data: data
+      });
+    }
   },
 
   submit(postText) {
@@ -38,7 +54,7 @@ var PostActionsCreators = {
       avatarUrl: user.avatarUrl,
       timeEU: timeEUString
     };
-    API('POST', 'event/' + eventId, data, PostActionsCreators.receivePost);
+    API('POST', 'event/' + eventId, data, () => {});
   }
 };
 

@@ -4,15 +4,22 @@ var PostsActions = require('../actions/PostsActions');
 require('./__styles__/NewPost.styl');
 
 var NewPost = React.createClass({
-  handleSubmit: function(e) {
+  handleSubmit(e) {
     e.preventDefault();
     var entryText = this.refs.text.getDOMNode().value;
-    if (entryText)
+    if (entryText) {
       PostsActions.submit(entryText);
+    }
     this.refs.text.getDOMNode().value = '';
   },
 
-  render: function() {
+  checkSubmit(e) {
+    if (e.keyCode === 13 && e.ctrlKey) {
+      this.handleSubmit(e);
+    }
+  },
+
+  render() {
     return (
       <div className="NewPost container">
         <div className="row card">
@@ -20,7 +27,7 @@ var NewPost = React.createClass({
             <button onClick={this.handleSubmit}>Comment</button>
           </div>
           <form className="ten columns body-text text-area" role="form">
-            <textarea ref="text"></textarea>
+            <textarea onKeyDown={this.checkSubmit} ref="text"></textarea>
           </form>
         </div>
       </div>
