@@ -12,7 +12,8 @@ module.exports = function(requestType, requestURL, data, callback) {
   request.send(JSON.stringify(data));
   request.onload = function() {
     if (request.status >= 200 && request.status < 400) {
-      return callback(null, JSON.parse(request.responseText));
+      var data = request.responseText ? JSON.parse(request.responseText) : {}
+      return callback(null, data);
     } else {
       return callback(request.status, request);
     }

@@ -4,6 +4,8 @@ var LoginStore = require('../stores/LoginStore');
 
 var LoginActions = require('../actions/LoginActions');
 
+require('./__styles__/UserBox.styl');
+
 var UserBox = React.createClass({
 
   //if the user is not logged in, show sign in/up
@@ -93,12 +95,12 @@ var Login = React.createClass({
             <span>Password:</span>
             <input
               ref="password"
-              type="password"/>
+              type="password" />
 
             <span>Confirm password:</span>
             <input
               ref="password"
-              type="password"/>
+              type="password" />
             <button
               className="btn btn-primary btn-sm margin-10"
               onClick={this._onSignup}>
@@ -204,12 +206,12 @@ var User = React.createClass({
 
 
     return (
-      <div onClick={this.expandToggle}>
+      <div onClick={this.expandToggle} className="UserBox">
         <img className="img-responsive nava-ava" src={avatar} />
         <div className="navbar-text navbar-user">
-          <a>
+          <button>
             {this.props.user.username}
-          </a>
+          </button>
         </div>
         {dropdown}
       </div>

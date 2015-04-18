@@ -55,6 +55,10 @@ var PostActionsCreators = {
       timeEU: timeEUString
     };
     API('POST', 'event/' + eventId, data, () => {});
+  },
+
+  delete(post) {
+    API('DELETE', 'event/' + post.eventId + '/entry/' + post._id, {}, () => {});
   }
 };
 

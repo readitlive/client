@@ -49,8 +49,8 @@ PostsStore.dispatcherToken = AppDispatcher.register(function(payload) {
       PostsStore.emitChange();
       break;
     case constants.DELETE_POST:
-      var index = R.findIndex(R.propEqual('_id', action.data.entry._id));
-      _posts = R.remove(index, 1);
+      var index = R.findIndex(R.propEq('_id', action.data.entryId))(_posts);
+      _posts = R.remove(index, 1, _posts);
       PostsStore.emitChange();
       break;
   }

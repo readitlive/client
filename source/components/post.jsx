@@ -1,4 +1,5 @@
 var React = require('react');
+var PostsActions = require('../actions/PostsActions');
 
 require('./__styles__/Post.styl');
 
@@ -7,11 +8,16 @@ var Post = React.createClass({
     post: React.PropTypes.object.isRequired
   },
 
-  render: function() {
+  handleDelete() {
+    PostsActions.delete(this.props.post)
+  },
+
+  render() {
     return (
       <div className="row card post">
         <PostMeta post={this.props.post}/>
         <PostText post={this.props.post}/>
+        <button onClick={this.handleDelete}>Delete</button>
       </div>
     );
   }
@@ -22,7 +28,7 @@ var PostMeta = React.createClass({
     post: React.PropTypes.object.isRequired
   },
 
-  render: function() {
+  render() {
     var avatar = this.props.post.avatarUrl || '/img/default-avatar.png';
     return (
       <div className="two columns">
@@ -39,7 +45,7 @@ var PostText = React.createClass({
     post: React.PropTypes.object.isRequired
   },
 
-  render: function() {
+  render() {
     return (
       <div className="ten columns body-text"
         dangerouslySetInnerHTML={{__html: this.props.post.postText}}
