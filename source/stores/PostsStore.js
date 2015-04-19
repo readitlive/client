@@ -53,6 +53,11 @@ PostsStore.dispatcherToken = AppDispatcher.register(function(payload) {
       _posts = R.remove(index, 1, _posts);
       PostsStore.emitChange();
       break;
+    case constants.PUT_POST:
+      var index = R.findIndex(R.propEq('_id', action.data.entryId))(_posts);
+      _posts[index] = action.data.entry;
+      PostsStore.emitChange();
+      break;
   }
   return true;
 });

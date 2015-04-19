@@ -34,6 +34,12 @@ var PostActionsCreators = {
         data: data
       });
     }
+    if (method === 'put' && type === 'Entry') {
+      return AppDispatcher.handleServerAction({
+        actionType: constants.PUT_POST,
+        data: data
+      })
+    }
   },
 
   submit(postText) {
