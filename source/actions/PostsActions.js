@@ -20,28 +20,6 @@ var PostActionsCreators = {
     });
   },
 
-  receiveUpdate(update) {
-    var {method, type, data} = update;
-    if (method === 'post' && type === 'Entry') {
-      return AppDispatcher.handleServerAction({
-        actionType: constants.RECEIVE_POST,
-        data: data
-      });
-    }
-    if (method === 'delete' && type === 'Entry') {
-      return AppDispatcher.handleServerAction({
-        actionType: constants.DELETE_POST,
-        data: data
-      });
-    }
-    if (method === 'put' && type === 'Entry') {
-      return AppDispatcher.handleServerAction({
-        actionType: constants.PUT_POST,
-        data: data
-      })
-    }
-  },
-
   submit(postText) {
     var timeNow = new Date();
     var euh = timeNow.getUTCHours() + 2;

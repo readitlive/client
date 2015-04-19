@@ -2,6 +2,7 @@ var React = require('react');
 var {Link} = require('react-router');
 
 var UserBox = require('./UserBox');
+var ViewerCountStore = require('../stores/ViewerCountStore');
 
 require('./__styles__/TopBar.styl');
 
@@ -9,6 +10,25 @@ var TopBar = React.createClass({
   propTypes: {
     event: React.PropTypes.object,
     user: React.PropTypes.object
+  },
+
+  getInitialState() {
+    return {
+      viewerCount: 0
+    };
+  },
+
+  //if the user is not logged in, show sign in/up
+  componentDidMount() {
+    ViewerCountStore.addChangeListener(this.checkStores);
+  },
+  componentWillUnmount() {
+    ViewerCountStore.removeChangeListener(this.checkStores);
+  },
+  checkStores() {
+    this.setState({
+      viewerCount: ViewerCountStore.getViewerCount()
+    });
   },
 
   getDefaultProps() {
@@ -33,6 +53,7 @@ var TopBar = React.createClass({
           <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" />
         </form>
         <span>{isLive}</span>
+        <span className="navbar-text">Viewer Count: {this.state.viewerCount}</span>
         <UserBox userLogin={this.props.handleLogin} user={this.props.user}/>
       </nav>
     );

@@ -2,7 +2,7 @@ var SockJS = require('sockjs-client');
 var sock;
 
 var WSHelper = {
-  connect(callback, eventId) {
+  connect(eventId, callback) {
     sock = new SockJS('http://localhost:3080/ws');
     sock.onmessage = function(e) {
         callback(JSON.parse(e.data));

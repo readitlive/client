@@ -5,6 +5,9 @@ var R = require('ramda');
 var PostsStore = require('../stores/PostsStore');
 var EventStore = require('../stores/EventStore');
 
+var SocketActions = require('../actions/SocketActions');
+var WSHelper = require('../helpers/WSHelper');
+
 var TopBar = require('./TopBar');
 var NewPost = require('./NewPost');
 var Feed = require('./Feed');
@@ -28,6 +31,7 @@ var WriteApp = React.createClass({
     this.setState({eventId});
     EventStore.init(eventId);
     PostsStore.init(eventId);
+    WSHelper.connect(eventId, SocketActions.receiveUpdate);
   },
 
   componentDidMount() {
