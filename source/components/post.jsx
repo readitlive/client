@@ -36,21 +36,34 @@ var PostText = React.createClass({
 var AdminArea = React.createClass({
   propTypes: {
     post: React.PropTypes.object.isRequired,
-    editing: React.PropTypes.bool.isRequired
+    editing: React.PropTypes.bool.isRequired,
+    handleSubmit: React.PropTypes.func.isRequired,
+    handleCancel: React.PropTypes.func.isRequired,
+    handleEdit: React.PropTypes.func.isRequired
   },
 
   handleDelete() {
     PostsActions.delete(this.props.post)
   },
 
+  handleSubmit() {
+    var entry = this.refs.editor.refs.text.getDOMNode().value;
+    this.props.handleSubmit(entry);
+  },
+
   render() {
     if (this.props.editing) {
       return (
-        <div className="ten columns">
+        <div className="ten columns post-admin" style={{display: 'flex', 'justify-content': 'space-between'}}>
           <Editor
             post={this.props.post}
             handleCancel={() => this.setState({editing: false}) }
-            handleSubmit={this.handleSubmit} />
+            handleSubmit={this.handleSubmit}
+            ref="editor"/>
+          <div>
+            <button onClick={this.handleSubmit}>Save</button>
+            <button onClick={this.props.handleCancel}>Cancel</button>
+          </div>
         </div>
       );
     } else {
@@ -71,12 +84,22 @@ var Editor = React.createClass({
     handleSubmit: React.PropTypes.func.isRequired
   },
 
+  getInitialState() {
+    return {
+      text: this.props.post.postText
+    };
+  },
+
   handleSubmit(e) {
     e.preventDefault();
     var entryText = this.refs.text.getDOMNode().value;
     if (entryText) {
       this.props.handleSubmit(entryText);
     }
+  },
+
+  handleChange(e) {
+    this.setState({text: e.target.value});
   },
 
   checkSubmit(e) {
@@ -90,8 +113,9 @@ var Editor = React.createClass({
       <div className="eight columns body-text">
         <form className="ten columns body-text text-area" role="form">
           <textarea
-            value={this.props.post.postText}
+            value={this.state.text}
             onKeyDown={this.checkSubmit}
+            onChange={this.handleChange}
             ref="text" />
         </form>
       </div>
@@ -111,7 +135,7 @@ var Post = React.createClass({
   },
 
   handleSubmit(entry) {
-    PostActions.update(this.props.post._id, entry)
+    PostsActions.update(this.props.post._id, entry, () => this.setState({editing: false}))
   },
 
   render() {
@@ -122,10 +146,11 @@ var Post = React.createClass({
         <PostMeta post={this.props.post}/>
         {!this.state.editing && post}
         <AdminArea
-          editing={this.state.editing}
-          post={this.props.post}
           handleEdit={() => this.setState({editing: true})}
-        />
+          handleCancel={() => this.setState({editing: false})}
+          handleSubmit={this.handleSubmit}
+          editing={this.state.editing}
+          post={this.props.post} />
       </div>
     );
   }
