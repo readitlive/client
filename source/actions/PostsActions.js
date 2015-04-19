@@ -57,6 +57,14 @@ var PostActionsCreators = {
     API('POST', 'event/' + eventId, data, () => {});
   },
 
+  update(entryId, newPostText) {;
+    var eventId = EventStore.getEvent()._id;
+    var data = {
+      postText: postText
+    };
+    API('PUT', 'event/' + eventId + '/entry/' + entryId, data, () => {});
+  },
+
   delete(post) {
     API('DELETE', 'event/' + post.eventId + '/entry/' + post._id, {}, () => {});
   }

@@ -2,6 +2,8 @@ var React = require('react');
 
 var UserBox = require('./UserBox');
 
+require('./__styles__/TopBar.styl');
+
 var TopBar = React.createClass({
   propTypes: {
     event: React.PropTypes.object,
@@ -15,7 +17,7 @@ var TopBar = React.createClass({
   render: function() {
     var isLive = this.props.event.isLive ? 'Live' : 'Event Ended';
     return (
-      <nav className="top-bar card" role="navigation">
+      <nav className="card TopBar" role="navigation">
         <a className="navbar-brand">Live Update Guy</a>
         <h5 className="navbar-text">{this.props.event.eventTitle}</h5>
         <form action="https://www.paypal.com/cgi-bin/webscr" method="post" className="navbar-text paypal-button" target="_blank">

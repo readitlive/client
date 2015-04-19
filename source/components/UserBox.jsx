@@ -167,7 +167,7 @@ var User = React.createClass({
     if (this.state.expanded) {
 
       dropdown = (
-        <div className="login-dropdown">
+        <div className="login-dropdown card">
           <div>
             <button
               className="btn btn-primary btn-sm margin-10"
@@ -191,7 +191,7 @@ var User = React.createClass({
 
     if (this.state.avatarAdd && this.state.expanded) {
       dropdown = (
-        <div className="login-dropdown">
+        <div className="login-dropdown card">
           <h4 className="margin-0">Upload new avatar:</h4>
           <input type="file" className="btn" id="avatar-upload-file" />
           <button
@@ -209,9 +209,9 @@ var User = React.createClass({
       <div onClick={this.expandToggle} className="UserBox">
         <img className="img-responsive nava-ava" src={avatar} />
         <div className="navbar-text navbar-user">
-          <button>
+          <div className="username">
             {this.props.user.username}
-          </button>
+          </div>
         </div>
         {dropdown}
       </div>
