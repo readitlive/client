@@ -4,13 +4,17 @@ var PostsActions = require('../actions/PostsActions');
 require('./__styles__/NewPost.styl');
 
 var NewPost = React.createClass({
+  propTypes: {
+    isComment: React.PropTypes.bool.isRequired
+  },
+
   handleSubmit(e) {
     e.preventDefault();
     var entryText = this.refs.text.getDOMNode().value;
     if (entryText) {
-      PostsActions.submit(entryText);
+      PostsActions.submit(entryText, this.props.isComment);
+      this.refs.text.getDOMNode().value = '';
     }
-    this.refs.text.getDOMNode().value = '';
   },
 
   checkSubmit(e) {

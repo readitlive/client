@@ -71,7 +71,7 @@ var WriteApp = React.createClass({
     return (
       <div>
         <TopBar event={this.state.event} user={this.state.user} />
-        {isAdmin && <NewPost />}
+        {this.state.user && <NewPost isComment={!isAdmin} />}
         <Feed isAdmin={this.state.isAdmin}/>
       </div>
     );

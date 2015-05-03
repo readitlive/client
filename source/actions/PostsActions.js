@@ -20,7 +20,7 @@ var PostActionsCreators = {
     });
   },
 
-  submit(postText) {
+  submit(postText, isComment) {
     var timeNow = new Date();
     var euh = timeNow.getUTCHours() + 2;
     if (euh < 10 ) { euh = "0" + euh; }
@@ -38,7 +38,11 @@ var PostActionsCreators = {
       avatarUrl: user.avatarUrl,
       timeEU: timeEUString
     };
-    API('POST', 'event/' + eventId, data, () => {});
+    if (isComment) {
+      API('POST', 'event/' + eventId + '/comment', data, () => {});
+    } else {
+      API('POST', 'event/' + eventId, data, () => {});
+    }
   },
 
   update(entryId, newPostText, callback) {;

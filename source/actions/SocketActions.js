@@ -28,6 +28,12 @@ var SocketActionsCreators = {
         data: data
       });
     }
+    if (type === 'Comment' && method === 'post') {
+      return AppDispatcher.handleServerAction({
+        actionType: constants.RECEIVE_COMMENT,
+        data: data
+      });
+    }
   }
 };
 
