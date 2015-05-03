@@ -8,7 +8,11 @@ require('./__styles__/UserBox.styl');
 
 var UserBox = React.createClass({
   render() {
-    return !this.props.user ? <Login /> : <User user={this.props.user}/>;
+    return (
+      <div className="UserArea">
+        {!this.props.user ? <Login /> : <User user={this.props.user}/>}
+      </div>
+    );
   }
 });
 
@@ -60,7 +64,7 @@ var Login = React.createClass({
 
       dropdown = (
         <div className="login-dropdown card">
-          <div className="header-container">
+          <div className="flex-container">
             <h5 className="margin-0">Login</h5>
             <button
               className="button button-primary"
@@ -93,7 +97,7 @@ var Login = React.createClass({
     if (this.state.signup && this.state.expanded) {
       dropdown = (
         <div className="login-dropdown card">
-        <div className="header-container">
+        <div className="flex-container">
           <h5 className="margin-0">Signup</h5>
           <button
             className="button button-primary"
@@ -162,7 +166,8 @@ var User = React.createClass({
     LoginActions.logoutUser();
   },
 
-  _onAddAvatarClick() {
+  handleAddAvatarClick(e) {
+    e.stopPropagation();
     this.setState({
       avatarAdd: true
     });
@@ -176,22 +181,23 @@ var User = React.createClass({
 
       dropdown = (
         <div className="login-dropdown card">
-          <div>
+          <div className="flex-container">
             <button
-              className="btn btn-primary btn-sm margin-10"
+              className="button"
+              onClick={this.handleAddAvatarClick}>
+                Add/Change Avatar
+            </button>
+            <button
+              className="button"
               onClick={this.handleLogout}>
                 Logout
             </button>
             <button
-              className="btn btn-default btn-sm"
+              className="button"
               onClick={this.expandToggle}>
                 Cancel
             </button>
-            <button
-              className="btn btn-primary btn-sm margin-10"
-              onClick={this._onAddAvatarClick}>
-                Add/Change Avatar
-            </button>
+
           </div>
         </div>
       );
@@ -200,10 +206,10 @@ var User = React.createClass({
     if (this.state.avatarAdd && this.state.expanded) {
       dropdown = (
         <div className="login-dropdown card">
-          <h4 className="margin-0">Upload new avatar:</h4>
+          <h5 className="margin-0">Upload new avatar:</h5>
           <input type="file" className="btn" id="avatar-upload-file" />
           <button
-            className="btn btn-default btn-sm"
+            className="button button-primary"
             onClick={this.expandToggle}>
               Cancel
           </button>
