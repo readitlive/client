@@ -9,7 +9,7 @@ var LoginActionsCreators = {
       username: username,
       password: password
     };
-    return ApiHelper('POST', '/auth', data, LoginActionsCreators.receiveUserLogin);
+    return ApiHelper('POST', 'auth/login', data, LoginActionsCreators.receiveUserLogin);
   },
   signupUser: function(username, password) {
     var data;
@@ -17,7 +17,7 @@ var LoginActionsCreators = {
       username: username,
       password: password
     };
-    return ApiHelper('POST', '/signup', data, LoginActionsCreators.receiveUserLogin);
+    return ApiHelper('POST', 'auth/signup', data, LoginActionsCreators.receiveUserLogin);
   },
   logoutUser: function() {
     return AppDispatcher.handleServerAction({

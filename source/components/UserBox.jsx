@@ -7,33 +7,13 @@ var LoginActions = require('../actions/LoginActions');
 require('./__styles__/UserBox.styl');
 
 var UserBox = React.createClass({
-
-  //if the user is not logged in, show sign in/up
-  // componentDidMount: function() {
-  //   LoginStore.addChangeListener(this._onLoginChange);
-  // },
-  // componentWillUnmount: function() {
-  //   LoginStore.removeChangeListener(this._onLoginChange);
-  // },
-  // _onLoginChange: function () {
-  //   //
-  // }
-
-  render: function() {
-    if (!this.props.user) {
-      return (
-        <Login />
-      );
-    } else {
-      return (
-        <User user={this.props.user}/>
-      );
-    }
+  render() {
+    return !this.props.user ? <Login /> : <User user={this.props.user}/>;
   }
 });
 
 var Login = React.createClass({
-  getInitialState: function () {
+  getInitialState() {
     return {
       expanded: false,
       signup: false,
@@ -43,53 +23,89 @@ var Login = React.createClass({
     };
   },
 
-  render: function() {
+  expandToggle() {
+    this.setState({
+      expanded: !this.state.expanded,
+      signup: false
+    });
+  },
+
+  goSignup() {
+    this.setState({
+      signup: true
+    })
+  },
+
+  goLogin() {
+    this.setState({
+      signup: false
+    })
+  },
+
+  handleLogin() {
+    var username = this.refs.username.getDOMNode().value;
+    var password =  this.refs.password.getDOMNode().value;
+    LoginActions.loginUser(username, password);
+  },
+
+  handleSignup() {
+    var username = this.refs.username.getDOMNode().value;
+    var password =  this.refs.password.getDOMNode().value;
+    LoginActions.signupUser(username, password);
+  },
+
+  render() {
     var dropdown;
     if (this.state.expanded) {
 
       dropdown = (
-        <div className="login-dropdown">
-          <span>
-            <h3 className="margin-0">Login
-              <button
-                className="btn btn-default btn-sm margin-10 "
-                onClick={this.goSignup}>
-                 Signup
-              </button>
-            </h3>
-          </span>
-
-          <div>
-            <span>Username:</span>
-            <input
-              ref="username" />
-
-            <span>Password:</span>
-            <input
-              ref="password"
-              type="password"/>
+        <div className="login-dropdown card">
+          <div className="header-container">
+            <h5 className="margin-0">Login</h5>
             <button
-              className="btn btn-primary btn-sm margin-10"
-              onClick={this._onSubmit}>
-                Submit
-            </button>
-            <button
-              className="btn btn-default btn-sm"
-              onClick={this.expandToggle}>
-                Cancel
+              className="button button-primary"
+              onClick={this.goSignup}>
+               Signup
             </button>
           </div>
+          <span>Username:</span>
+          <input
+            type="email"
+            ref="username" />
+
+          <span>Password:</span>
+          <input
+            ref="password"
+            type="password"/>
+          <button
+            className="button button-primary"
+            onClick={this.handleLogin}>
+              Submit
+          </button>
+          <button
+            className="button"
+            onClick={this.expandToggle}>
+              Cancel
+          </button>
         </div>
       );
     }
     if (this.state.signup && this.state.expanded) {
       dropdown = (
-        <div className="login-dropdown">
-          <h3 className="margin-0">Signup</h3>
+        <div className="login-dropdown card">
+        <div className="header-container">
+          <h5 className="margin-0">Signup</h5>
+          <button
+            className="button button-primary"
+            onClick={this.goLogin}>
+             Login
+          </button>
+        </div>
 
           <div>
             <span>Username:</span>
             <input
+              type="email"
               ref="username" />
 
             <span>Password:</span>
@@ -102,12 +118,12 @@ var Login = React.createClass({
               ref="password"
               type="password" />
             <button
-              className="btn btn-primary btn-sm margin-10"
-              onClick={this._onSignup}>
+              className="button button-promary"
+              onClick={this.handleSignup}>
                 Signup
             </button>
             <button
-              className="btn btn-default btn-sm"
+              className="button"
               onClick={this.expandToggle}>
                 Cancel
             </button>
@@ -117,50 +133,42 @@ var Login = React.createClass({
     }
 
     return (
-      <a className="login-text" onClick={this.expandToggle}>
-        Sign in/up
+      <div className="LoginBox">
+        <span onClick={this.expandToggle} className="login-text">Sign in/up</span>
         {dropdown}
-      </a>
+      </div>
     );
 
-  },
-
-  expandToggle: function () {
-    this.setState({
-      expanded: !this.state.expanded,
-      signup: false
-    });
-  },
-
-  goSignup: function() {
-    this.setState({
-      signup: true
-    })
-  },
-
-  handleLogin: function() {
-    var username = this.refs.username.getDOMNode().value;
-    var password =  this.refs.password.getDOMNode().value;
-    LoginActions.loginUser(username, password);
-  },
-
-  handleSignup: function() {
-    var username = this.refs.username.getDOMNode().value;
-    var password =  this.refs.password.getDOMNode().value;
-    LoginActions.signupUser(username, password);
-  },
+  }
 
 });
 
-
 var User = React.createClass({
-  getInitialState: function() {
+  getInitialState() {
     return {
       expanded: false,
       avatarAdd: false
     };
   },
-  render: function () {
+
+  expandToggle() {
+    this.setState({
+      expanded: !this.state.expanded,
+      avatarAdd: false
+    });
+  },
+
+  handleLogout() {
+    LoginActions.logoutUser();
+  },
+
+  _onAddAvatarClick() {
+    this.setState({
+      avatarAdd: true
+    });
+  },
+
+  render() {
     var avatar = this.props.user.avatarUrl || 'http://higoodbye.com/assets/img/default-avatar.jpg';
     var dropdown;
 
@@ -204,7 +212,6 @@ var User = React.createClass({
       );
     }
 
-
     return (
       <div onClick={this.expandToggle} className="UserBox">
         <img className="img-responsive nava-ava" src={avatar} />
@@ -216,40 +223,7 @@ var User = React.createClass({
         {dropdown}
       </div>
     );
-  },
-
-  expandToggle: function () {
-    this.setState({
-      expanded: !this.state.expanded,
-      avatarAdd: false
-    });
-  },
-
-  handleLogout: function() {
-    LoginActions.logoutUser();
-  },
-
-  _onAddAvatarClick: function () {
-    this.setState({
-      avatarAdd: true
-    });
   }
-
 });
 
-
-
 module.exports = UserBox;
-
-
-
-
-
-
-
-  // _onSubmit: function() {
-  //   var username = this.refs.username.getDOMNode().value;
-  //   var password =  this.refs.password.getDOMNode().value;
-  //   LoginActionsCreators.loginUser(username, password);
-
-  // },

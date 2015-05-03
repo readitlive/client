@@ -4,6 +4,7 @@ var R = require('ramda');
 // var LoginStore = require('../stores/LoginStore');
 var PostsStore = require('../stores/PostsStore');
 var EventStore = require('../stores/EventStore');
+var LoginStore = require('../stores/LoginStore');
 
 var SocketActions = require('../actions/SocketActions');
 var WSHelper = require('../helpers/WSHelper');
@@ -19,11 +20,17 @@ var WriteApp = React.createClass({
     router: React.PropTypes.func
   },
 
+  statics: {
+    getStateFromStores() {
+      return {
+        event: EventStore.getEvent(),
+        user: LoginStore.getCurrentUser()
+      }
+    }
+  },
+
   getInitialState() {
-    return {
-      user: dummyUser,
-      header: dummyHeader
-    };
+    return WriteApp.getStateFromStores();
   },
 
   componentWillMount() {
@@ -35,7 +42,8 @@ var WriteApp = React.createClass({
   },
 
   componentDidMount() {
-    EventStore.addChangeListener(this.handleChange);
+    EventStore.addChangeListener(this.handleStoreChange);
+    LoginStore.addChangeListener(this.handleStoreChange);
   },
 
   componentDidUpdate() {
@@ -48,11 +56,12 @@ var WriteApp = React.createClass({
   },
 
   componentWillUnmount() {
-    EventStore.removeChangeListener(this.handleChange);
+    EventStore.removeChangeListener(this.handleStoreChange);
+    LoginStore.removeChangeListener(this.handleStoreChange);
   },
 
-  handleChange() {
-    this.setState({event: EventStore.getEvent()});
+  handleStoreChange() {
+    this.setState(WriteApp.getStateFromStores());
   },
 
   render() {
@@ -71,13 +80,5 @@ var WriteApp = React.createClass({
     );
   }
 });
-
-var dummyUser = {
-  username: 'bob',
-  eventAdmin: true,
-  avatarUrl: 'http://liveblogphotos.s3-us-west-2.amazonaws.com/c1b8987d-9a4a-4f32-b8db-86e5e3e1a662.jpeg'
-};
-
-var dummyHeader = {headerData: { brand: 'Live Update Guy', currentEvent: 'Vuelta a España 2014: Stage 4: Mairena del Alcor to Córdoba, 164.7km'}, isLive: 'true' };
 
 module.exports = WriteApp;
