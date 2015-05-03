@@ -7,6 +7,10 @@ var Post = require('./Post');
 
 var Feed = React.createClass({
 
+  propTypes: {
+    isAdmin: React.PropTypes.bool.isRequired
+  },
+
   getInitialState() {
     return {
       postsData: PostsStore.getPosts()
@@ -30,7 +34,7 @@ var Feed = React.createClass({
     if (this.state.postsData) {
       postNodes = R.map((post, i) => {
         return (
-          <Post post={post} key={i}/>
+          <Post post={post} isAdmin={this.props.isAdmin} key={i}/>
         );
       }, this.state.postsData);
     }

@@ -1,4 +1,5 @@
 
+var R = require('ramda')
 var assign = require('object-assign');
 var EventEmitter = require('events').EventEmitter;
 var AppDispatcher = require('../dispatchers/appDispatcher');
@@ -55,6 +56,11 @@ var LoginStore = assign({}, EventEmitter.prototype, {
   },
   getAuthToken: function() {
     return _authToken;
+  },
+  userIsAdmin: function(event) {
+    if (!_currentUser.username || !event.adminUsers) return false;
+    var index = R.indexOf(_currentUser.username, event.adminUsers);
+    return index >= 0;
   }
 });
 

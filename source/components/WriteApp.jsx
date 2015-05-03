@@ -24,8 +24,9 @@ var WriteApp = React.createClass({
     getStateFromStores() {
       return {
         event: EventStore.getEvent(),
-        user: LoginStore.getCurrentUser()
-      }
+        user: LoginStore.getCurrentUser(),
+        isAdmin: LoginStore.userIsAdmin(EventStore.getEvent())
+      };
     }
   },
 
@@ -65,17 +66,13 @@ var WriteApp = React.createClass({
   },
 
   render() {
-    var isAuthenticated = function() {
-      if (this.state.user) {
-        return <NewPost />;
-      }
-    }.bind(this);
+    var isAdmin = LoginStore.userIsAdmin(this.state.event);
 
     return (
       <div>
         <TopBar event={this.state.event} user={this.state.user} />
-        {isAuthenticated()}
-        <Feed />
+        {isAdmin && <NewPost />}
+        <Feed isAdmin={this.state.isAdmin}/>
       </div>
     );
   }

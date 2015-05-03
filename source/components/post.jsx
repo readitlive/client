@@ -125,7 +125,8 @@ var Editor = React.createClass({
 
 var Post = React.createClass({
   propTypes: {
-    post: React.PropTypes.object.isRequired
+    post: React.PropTypes.object.isRequired,
+    isAdmin: React.PropTypes.bool.isRequired
   },
 
   getInitialState() {
@@ -141,16 +142,19 @@ var Post = React.createClass({
   render() {
     var post = (<PostText post={this.props.post}/>);
 
+    var adminArea = (
+      <AdminArea
+        handleEdit={() => this.setState({editing: true})}
+        handleCancel={() => this.setState({editing: false})}
+        handleSubmit={this.handleSubmit}
+        editing={this.state.editing}
+        post={this.props.post} />
+    );
     return (
       <div className="row card post">
         <PostMeta post={this.props.post}/>
         {!this.state.editing && post}
-        <AdminArea
-          handleEdit={() => this.setState({editing: true})}
-          handleCancel={() => this.setState({editing: false})}
-          handleSubmit={this.handleSubmit}
-          editing={this.state.editing}
-          post={this.props.post} />
+        {this.props.isAdmin && adminArea}
       </div>
     );
   }
