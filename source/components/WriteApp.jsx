@@ -12,6 +12,7 @@ var WSHelper = require('../helpers/WSHelper');
 var TopBar = require('./TopBar');
 var NewPost = require('./NewPost');
 var Feed = require('./Feed');
+var CommentsDisplay = require('./CommentsDisplay');
 
 require('./__styles__/App.styl');
 
@@ -72,7 +73,10 @@ var WriteApp = React.createClass({
       <div>
         <TopBar event={this.state.event} user={this.state.user} />
         {this.state.user && <NewPost isComment={!isAdmin} />}
-        <Feed isAdmin={this.state.isAdmin}/>
+        <div className="flex-box">
+          <Feed isAdmin={this.state.isAdmin} />
+          {isAdmin && <CommentsDisplay />}
+        </div>
       </div>
     );
   }

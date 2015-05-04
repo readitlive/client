@@ -3,7 +3,6 @@ var EventEmitter = require('events').EventEmitter;
 var R = require('ramda');
 
 var AppDispatcher = require('../dispatchers/appDispatcher');
-var WSHelper = require('../helpers/WSHelper');
 var API = require('../helpers/ApiHelper');
 var constants = require('../constants/constants');
 var PostsActions = require('../actions/PostsActions');

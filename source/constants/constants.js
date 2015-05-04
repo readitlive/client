@@ -1,6 +1,5 @@
-var constants;
 
-constants = {
+module.exports = {
   RECEIVE_LOGIN_USER: 'RECEIVE_LOGIN_USER',
   LOGOUT_USER: 'LOGOUT_USER',
   RECEIVE_POSTS: 'RECEIVE_POSTS',
@@ -9,7 +8,8 @@ constants = {
   PUT_POST: 'PUT_POST',
   UPDATE_VIEWER_COUNT: 'UPDATE_VIEWER_COUNT',
   RECEIVE_EVENT: 'RECEIVE_EVENT',
-  RECEIVE_COMMENT: 'RECEIVE_COMMENT'
+  RECEIVE_COMMENT: 'RECEIVE_COMMENT',
+  RECEIVE_COMMENTS: 'RECEIVE_COMMENTS',
+  DELETE_COMMENT: 'DELETE_COMMENT',
+  Default_Avatar: 'img/default-avatar.png'
 };
-
-module.exports = constants;

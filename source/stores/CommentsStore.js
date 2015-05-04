@@ -3,10 +3,9 @@ var EventEmitter = require('events').EventEmitter;
 var R = require('ramda');
 
 var AppDispatcher = require('../dispatchers/appDispatcher');
-var WSHelper = require('../helpers/WSHelper');
 var API = require('../helpers/ApiHelper');
 var constants = require('../constants/constants');
-var PostsActions = require('../actions/PostsActions');
+var CommentsActions = require('../actions/CommentsActions');
 
 var CHANGE_EVENT = 'change';
 
@@ -15,7 +14,7 @@ var _comments = [];
 var CommentsStore = assign({}, EventEmitter.prototype, {
   init: function(eventId) {
     _comments = [];
-    API('GET', 'event/' + eventId + '/entry', {}, PostsActions.receivePosts);
+    API('GET', 'event/' + eventId + '/comment', {}, CommentsActions.receiveComments);
   },
 
   emitChange: function() {
@@ -39,15 +38,19 @@ CommentsStore.dispatcherToken = AppDispatcher.register(function(payload) {
   var action;
   action = payload.action;
   switch (action.actionType) {
-    case constants.RECEIVE_COMMENT:
-      _comments.push(action.data.entry);
+    case constants.RECEIVE_COMMENTS:
+      _comments = _comments.concat(action.data);
       CommentsStore.emitChange();
       break;
-    // case constants.DELETE_POST:
-    //   var index = R.findIndex(R.propEq('_id', action.data.entryId))(_comments);
-    //   _comments = R.remove(index, 1, _comments);
-    //   CommentsStore.emitChange();
-    //   break;
+    case constants.RECEIVE_COMMENT:
+      _comments.push(action.data.comment);
+      CommentsStore.emitChange();
+      break;
+    case constants.DELETE_COMMENT:
+      var index = R.findIndex(R.propEq('_id', action.commentId))(_comments);
+      _comments = R.remove(index, 1, _comments);
+      CommentsStore.emitChange();
+      break;
     // case constants.PUT_POST:
     //   var index = R.findIndex(R.propEq('_id', action.data.entryId))(_comments);
     //   _comments[index] = action.data.entry;

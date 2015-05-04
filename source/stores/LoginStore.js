@@ -32,11 +32,16 @@ var _logoutUser = function() {
 var LoginStore = assign({}, EventEmitter.prototype, {
   init: function() {
     var authToken = window.localStorage.getItem('ril-auth-token');
-    var userData = JSON.parse(window.localStorage.getItem('ril-current-user'));
+    var userData;
+    try {
+      userData = JSON.parse(window.localStorage.getItem('ril-current-user'));
+    } catch (e) {
+      userData = null;
+    }
     var exp = window.localStorage.getItem('ril-auth-exp');
-    if (exp && exp <= Date.now()) {
+    if (!exp || (exp && exp <= Date.now()) || !authToken || !userData) {
       _logoutUser();
-    } else if (authToken && userData) {
+    } else {
       _currentUser = userData;
       _authToken = authToken;
       _exp = exp;
@@ -58,7 +63,7 @@ var LoginStore = assign({}, EventEmitter.prototype, {
     return _authToken;
   },
   userIsAdmin: function(event) {
-    if (!_currentUser.username || !event.adminUsers) return false;
+    if (!_currentUser || !_currentUser.username || !event.adminUsers) return false;
     var index = R.indexOf(_currentUser.username, event.adminUsers);
     return index >= 0;
   }

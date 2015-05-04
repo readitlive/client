@@ -1,5 +1,6 @@
 var React = require('react');
 var PostsActions = require('../actions/PostsActions');
+var constants = require('../constants/constants');
 
 require('./__styles__/Post.styl');
 
@@ -9,7 +10,7 @@ var PostMeta = React.createClass({
   },
 
   render() {
-    var avatar = this.props.post.avatarUrl || '/img/default-avatar.png';
+    var avatar = this.props.post.avatarUrl || constants.Default_Avatar;
     return (
       <div className="two columns">
         <img className="img-responsive avatar-pic" height="80" width="80" src={avatar} />

@@ -1,8 +1,8 @@
 var React = require('react');
 
 var LoginStore = require('../stores/LoginStore');
-
 var LoginActions = require('../actions/LoginActions');
+var constants = require('../constants/constants');
 
 require('./__styles__/UserBox.styl');
 
@@ -174,7 +174,7 @@ var User = React.createClass({
   },
 
   render() {
-    var avatar = this.props.user.avatarUrl || 'http://higoodbye.com/assets/img/default-avatar.jpg';
+    var avatar = this.props.user.avatarUrl || constants.Default_Avatar;
     var dropdown;
 
     if (this.state.expanded) {
