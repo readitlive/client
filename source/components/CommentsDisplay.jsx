@@ -18,14 +18,25 @@ var CommentEntry = React.createClass({
     CommentsActions.delete(this.props.comment);
   },
 
+  handlePost(e) {
+    e.stopPropagation();
+    CommentsActions.post(this.props.comment);
+  },
+
   render() {
     var avatar = this.props.comment.avatarUrl || constants.Default_Avatar;
 
     return (
-      <div className="card flex-box">
-        <img src={avatar} height="40" width="40" />
-        {this.props.comment.postText}
+      <div className="card">
+        <div className="flex-start">
+          <img src={avatar} height="40" width="40" />
+          <div className="comment-text">{this.props.comment.postText}</div>
+        </div>
         <span onClick={this.handleDelete} className="delete-x">X</span>
+        <div className="flex-box">
+          <span>By: {this.props.comment.author}</span>
+          <span onClick={this.handlePost} className="post-button">Post</span>
+        </div>
       </div>
     );
   }
