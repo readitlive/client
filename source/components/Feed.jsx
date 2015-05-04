@@ -8,35 +8,18 @@ var Post = require('./Post');
 var Feed = React.createClass({
 
   propTypes: {
-    isAdmin: React.PropTypes.bool.isRequired
-  },
-
-  getInitialState() {
-    return {
-      postsData: PostsStore.getPosts()
-    };
-  },
-
-  componentDidMount() {
-    PostsStore.addChangeListener(this._onPostsChange);
-  },
-
-  componentWillUnmount() {
-    PostsStore.removeChangeListener(this._onPostsChange);
-  },
-
-  _onPostsChange() {
-    this.setState({postsData: PostsStore.getPosts()});
+    isAdmin: React.PropTypes.bool.isRequired,
+    postsData: React.PropTypes.array.isRequired
   },
 
   render() {
     var postNodes;
-    if (this.state.postsData) {
+    if (this.props.postsData) {
       postNodes = R.map((post, i) => {
         return (
           <Post post={post} isAdmin={this.props.isAdmin} key={i}/>
         );
-      }, this.state.postsData);
+      }, this.props.postsData);
     }
 
     return (

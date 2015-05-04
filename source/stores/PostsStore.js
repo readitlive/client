@@ -6,6 +6,7 @@ var AppDispatcher = require('../dispatchers/appDispatcher');
 var API = require('../helpers/ApiHelper');
 var constants = require('../constants/constants');
 var PostsActions = require('../actions/PostsActions');
+var EventStore = require('../stores/EventStore');
 
 var CHANGE_EVENT = 'change';
 
@@ -28,7 +29,11 @@ var PostsStore = assign({}, EventEmitter.prototype, {
   },
   getPosts: function() {
     if (_posts.length) {
-      return R.reverse(_posts);
+      if (EventStore.eventIsLive()) {
+        return R.reverse(_posts);
+      } else {
+        return _posts;
+      }
     }
     return [];
   }

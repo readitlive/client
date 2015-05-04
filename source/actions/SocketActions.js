@@ -34,6 +34,12 @@ var SocketActionsCreators = {
         data: data
       });
     }
+    if (type === 'Event' && method === 'put') {
+      return AppDispatcher.handleServerAction({
+        actionType: constants.RECEIVE_EVENT,
+        event: data.event
+      });
+    }
   }
 };
 

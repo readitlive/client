@@ -26,7 +26,8 @@ var WriteApp = React.createClass({
       return {
         event: EventStore.getEvent(),
         user: LoginStore.getCurrentUser(),
-        isAdmin: LoginStore.userIsAdmin(EventStore.getEvent())
+        isAdmin: LoginStore.userIsAdmin(EventStore.getEvent()),
+        postsData: PostsStore.getPosts()
       };
     }
   },
@@ -46,6 +47,7 @@ var WriteApp = React.createClass({
   componentDidMount() {
     EventStore.addChangeListener(this.handleStoreChange);
     LoginStore.addChangeListener(this.handleStoreChange);
+    PostsStore.addChangeListener(this.handleStoreChange);
   },
 
   componentDidUpdate() {
@@ -60,6 +62,7 @@ var WriteApp = React.createClass({
   componentWillUnmount() {
     EventStore.removeChangeListener(this.handleStoreChange);
     LoginStore.removeChangeListener(this.handleStoreChange);
+    PostsStore.removeChangeListener(this.handleStoreChange);
   },
 
   handleStoreChange() {
@@ -71,10 +74,10 @@ var WriteApp = React.createClass({
 
     return (
       <div>
-        <TopBar event={this.state.event} user={this.state.user} />
+        <TopBar event={this.state.event} user={this.state.user} isAdmin={this.state.isAdmin}/>
         {this.state.user && <NewPost isComment={!isAdmin} />}
         <div className="flex-box">
-          <Feed isAdmin={this.state.isAdmin} />
+          <Feed isAdmin={this.state.isAdmin} postsData={this.state.postsData}/>
           {isAdmin && <CommentsDisplay />}
         </div>
       </div>

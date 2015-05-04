@@ -29,6 +29,10 @@ var EventStore = assign({}, EventEmitter.prototype, {
   },
   getEvent: function() {
     return _event || {};
+  },
+
+  eventIsLive: function() {
+    return !!_event.eventIsLive;
   }
 });
 
@@ -38,6 +42,10 @@ EventStore.dispatcherToken = AppDispatcher.register(function(payload) {
   switch (action.actionType) {
     case constants.RECEIVE_EVENT:
       _event = action.event;
+      EventStore.emitChange();
+      break;
+    case constants.EVENT_LIVE_TOGGLE:
+      _event.eventIsLive = !_event.eventIsLive;
       EventStore.emitChange();
       break;
   }

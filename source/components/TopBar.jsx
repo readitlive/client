@@ -3,19 +3,25 @@ var {Link} = require('react-router');
 
 var UserBox = require('./UserBox');
 var ViewerCountStore = require('../stores/ViewerCountStore');
+var EventActions = require('../actions/EventActions');
 
 require('./__styles__/TopBar.styl');
 
 var TopBar = React.createClass({
   propTypes: {
     event: React.PropTypes.object,
-    user: React.PropTypes.object
+    user: React.PropTypes.object,
+    isAdmin: React.PropTypes.bool.isRequired
   },
 
   getInitialState() {
     return {
       viewerCount: 0
     };
+  },
+
+  getDefaultProps() {
+    return {event: {}};
   },
 
   //if the user is not logged in, show sign in/up
@@ -31,12 +37,20 @@ var TopBar = React.createClass({
     });
   },
 
-  getDefaultProps() {
-    return {event: {}};
+  toggleLive() {
+    EventActions.toggleLive(this.props.event);
+  },
+
+  renderLiveToggle(statusText) {
+    return (
+      <button onClick={this.toggleLive}>
+        {statusText}
+      </button>
+    );
   },
 
   render: function() {
-    var isLive = this.props.event.isLive ? 'Live' : 'Event Ended';
+    var isLive = this.props.event.eventIsLive ? 'Live' : 'Event Ended';
     return (
       <nav className="card TopBar" role="navigation">
         <Link to="events" className="navbar-brand">Live Update Guy</Link>
@@ -52,7 +66,7 @@ var TopBar = React.createClass({
           <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" />
           <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" />
         </form>
-        <span>{isLive}</span>
+        {this.props.isAdmin ? this.renderLiveToggle(isLive) : <span>{isLive}</span> }
         <span className="navbar-text">Viewer Count: {this.state.viewerCount}</span>
         <UserBox userLogin={this.props.handleLogin} user={this.props.user}/>
       </nav>
