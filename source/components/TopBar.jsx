@@ -16,7 +16,8 @@ var TopBar = React.createClass({
 
   getInitialState() {
     return {
-      viewerCount: 0
+      viewerCount: 0,
+      liveMenu: false
     };
   },
 
@@ -41,10 +42,21 @@ var TopBar = React.createClass({
     EventActions.toggleLive(this.props.event);
   },
 
+  toggleMenu() {
+    this.setState({liveMenu: !this.state.liveMenu});
+  },
+
   renderLiveToggle(statusText) {
+    var menu = (
+      <div className="nav-dropdown flex-box">
+        <div onClick={this.toggleLive} className="hyperbutton">{this.props.event.eventIsLive ? 'End Event' : 'Start Event'}</div>
+      </div>
+    );
+
     return (
-      <div onClick={this.toggleLive} className="hyperbutton">
+      <div onClick={this.toggleMenu} className="hyperbutton nevbar-text">
         {statusText}
+        {this.state.liveMenu && menu}
       </div>
     );
   },
@@ -54,7 +66,7 @@ var TopBar = React.createClass({
     return (
       <nav className="card TopBar" role="navigation">
         <Link to="events" className="navbar-brand">Live Update Guy</Link>
-        <h5 className="navbar-text" style={{flex: 1}}>{this.props.event.eventTitle}</h5>
+        <div className="navbar-text" style={{flex: 1}}>{this.props.event.eventTitle}</div>
         <form action="https://www.paypal.com/cgi-bin/webscr" method="post" className="navbar-text paypal-button" target="_blank">
           <input type="hidden" name="cmd" value="_donations" />
           <input type="hidden" name="business" value="charles@pelkey.com" />
@@ -66,8 +78,8 @@ var TopBar = React.createClass({
           <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" />
           <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" />
         </form>
-        {this.props.isAdmin ? this.renderLiveToggle(isLive) : <span>{isLive}</span> }
-        <span className="navbar-text">Viewer Count: {this.state.viewerCount}</span>
+        {this.props.isAdmin ? this.renderLiveToggle(isLive) : <div className="navbar-text">{isLive}</div> }
+        <div className="navbar-text">Reader Count: {this.state.viewerCount}</div>
         <UserBox userLogin={this.props.handleLogin} user={this.props.user}/>
       </nav>
     );

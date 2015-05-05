@@ -14,7 +14,6 @@ var PostMeta = React.createClass({
     return (
       <div style={{}}>
         <img className="img-responsive avatar-pic" height="80" width="80" src={avatar} />
-        <p className="meta">{this.props.post.author}</p>
         <p className="meta meta-time">{this.props.post.timeEU}</p>
       </div>
     );
@@ -28,8 +27,10 @@ var PostText = React.createClass({
 
   render() {
     return (
-      <div className="body-text card" style={{flex: 1, 'margin-left': '24px'}}
-        dangerouslySetInnerHTML={{__html: this.props.post.postText}}/>
+      <div className="body-text card" style={{flex: 1, 'margin-left': '24px'}}>
+        <div className="author-name">{this.props.post.author}</div>
+        <div dangerouslySetInnerHTML={{__html: this.props.post.postText}}/>
+      </div>
     );
   }
 });

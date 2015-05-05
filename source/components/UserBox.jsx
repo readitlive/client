@@ -197,7 +197,7 @@ var User = React.createClass({
             <div
               className="hyperbutton"
               onClick={this.handleAddAvatarClick}>
-                Change Avatar
+                Change avatar
             </div>
             <div
               className="hyperbutton"
