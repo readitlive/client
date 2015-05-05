@@ -58,6 +58,12 @@ var Login = React.createClass({
     LoginActions.signupUser(username, password);
   },
 
+  checkEnter(e) {
+    if (e.key === 'Enter') {
+      this.handleSignup();
+    }
+  },
+
   render() {
     var dropdown;
     if (this.state.expanded) {
@@ -66,11 +72,11 @@ var Login = React.createClass({
         <div className="login-dropdown card">
           <div className="flex-container">
             <h5 className="margin-0">Login</h5>
-            <button
-              className="button button-primary"
+            <div
+              className="hyperbutton"
               onClick={this.goSignup}>
                Signup
-            </button>
+            </div>
           </div>
           <span>Username:</span>
           <input
@@ -79,18 +85,21 @@ var Login = React.createClass({
 
           <span>Password:</span>
           <input
+            onKeyDown={this.checkEnter}
             ref="password"
             type="password"/>
-          <button
-            className="button button-primary"
-            onClick={this.handleLogin}>
-              Submit
-          </button>
-          <button
-            className="button"
-            onClick={this.expandToggle}>
-              Cancel
-          </button>
+          <div className="flex-right">
+            <div
+              className="hyperbutton"
+              onClick={this.handleLogin}>
+                Submit
+            </div>
+            <div
+              className="hyperbutton"
+              onClick={this.expandToggle}>
+                Cancel
+            </div>
+          </div>
         </div>
       );
     }
@@ -99,11 +108,11 @@ var Login = React.createClass({
         <div className="login-dropdown card">
         <div className="flex-container">
           <h5 className="margin-0">Signup</h5>
-          <button
-            className="button button-primary"
+          <div
+            className="hyperbutton"
             onClick={this.goLogin}>
              Login
-          </button>
+          </div>
         </div>
 
           <div>
@@ -119,18 +128,21 @@ var Login = React.createClass({
 
             <span>Confirm password:</span>
             <input
+              onKeyDown={this.checkEnter}
               ref="password"
               type="password" />
-            <button
-              className="button button-promary"
-              onClick={this.handleSignup}>
-                Signup
-            </button>
-            <button
-              className="button"
-              onClick={this.expandToggle}>
-                Cancel
-            </button>
+            <div className="flex-right">
+              <div
+                className="hyperbutton"
+                onClick={this.handleSignup}>
+                  Signup
+              </div>
+              <div
+                className="hyperbutton"
+                onClick={this.expandToggle}>
+                  Cancel
+              </div>
+            </div>
           </div>
         </div>
       );
@@ -180,23 +192,23 @@ var User = React.createClass({
     if (this.state.expanded) {
 
       dropdown = (
-        <div className="login-dropdown card">
+        <div className="login-dropdown">
           <div className="flex-container">
-            <button
-              className="button"
+            <div
+              className="hyperbutton"
               onClick={this.handleAddAvatarClick}>
-                Add/Change Avatar
-            </button>
-            <button
-              className="button"
+                Change Avatar
+            </div>
+            <div
+              className="hyperbutton"
               onClick={this.handleLogout}>
                 Logout
-            </button>
-            <button
-              className="button"
+            </div>
+            <div
+              className="hyperbutton"
               onClick={this.expandToggle}>
                 Cancel
-            </button>
+            </div>
 
           </div>
         </div>
@@ -208,11 +220,11 @@ var User = React.createClass({
         <div className="login-dropdown card">
           <h5 className="margin-0">Upload new avatar:</h5>
           <input type="file" className="btn" id="avatar-upload-file" />
-          <button
-            className="button button-primary"
+          <div
+            className="hyperbutton"
             onClick={this.expandToggle}>
               Cancel
-          </button>
+          </div>
 
         </div>
       );

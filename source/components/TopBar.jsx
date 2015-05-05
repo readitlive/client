@@ -43,9 +43,9 @@ var TopBar = React.createClass({
 
   renderLiveToggle(statusText) {
     return (
-      <button onClick={this.toggleLive}>
+      <div onClick={this.toggleLive} className="hyperbutton">
         {statusText}
-      </button>
+      </div>
     );
   },
 

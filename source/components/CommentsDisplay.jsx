@@ -27,15 +27,17 @@ var CommentEntry = React.createClass({
     var avatar = this.props.comment.avatarUrl || constants.Default_Avatar;
 
     return (
-      <div className="card">
+      <div className="CommentEntry">
+        <div className="flex-right">
+          <div onClick={this.handleDelete} className="hyperbutton">Delete</div>
+          <div onClick={this.handlePost} className="hyperbutton">Post</div>
+        </div>
         <div className="flex-start">
           <img src={avatar} height="40" width="40" />
-          <div className="comment-text">{this.props.comment.postText}</div>
-        </div>
-        <span onClick={this.handleDelete} className="delete-x">X</span>
-        <div className="flex-box">
-          <span>By: {this.props.comment.author}</span>
-          <span onClick={this.handlePost} className="post-button">Post</span>
+          <div className="card comment-text">
+            <div className="author-name">{this.props.comment.author}:</div>
+            {this.props.comment.postText}
+          </div>
         </div>
       </div>
     );

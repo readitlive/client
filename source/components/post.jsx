@@ -12,7 +12,7 @@ var PostMeta = React.createClass({
   render() {
     var avatar = this.props.post.avatarUrl || constants.Default_Avatar;
     return (
-      <div className="two columns">
+      <div style={{}}>
         <img className="img-responsive avatar-pic" height="80" width="80" src={avatar} />
         <p className="meta">{this.props.post.author}</p>
         <p className="meta meta-time">{this.props.post.timeEU}</p>
@@ -28,7 +28,7 @@ var PostText = React.createClass({
 
   render() {
     return (
-      <div className="eight columns body-text"
+      <div className="body-text card" style={{flex: 1, 'margin-left': '24px'}}
         dangerouslySetInnerHTML={{__html: this.props.post.postText}}/>
     );
   }
@@ -55,23 +55,23 @@ var AdminArea = React.createClass({
   render() {
     if (this.props.editing) {
       return (
-        <div className="ten columns post-admin" style={{display: 'flex', 'justify-content': 'space-between'}}>
+        <div className="post-admin flex-box">
           <Editor
             post={this.props.post}
             handleCancel={() => this.setState({editing: false}) }
             handleSubmit={this.handleSubmit}
             ref="editor"/>
           <div>
-            <button onClick={this.handleSubmit}>Save</button>
-            <button onClick={this.props.handleCancel}>Cancel</button>
+            <div className="hyperbutton" onClick={this.handleSubmit}>Save</div>
+            <div className="hyperbutton" onClick={this.props.handleCancel}>Cancel</div>
           </div>
         </div>
       );
     } else {
       return (
-        <div className="two columns">
-          <button onClick={this.handleDelete}>Delete</button>
-          <button onClick={this.props.handleEdit}>Edit</button>
+        <div className="flex-right">
+          <div className="hyperbutton" onClick={this.handleDelete}>Delete</div>
+          <div className="hyperbutton" onClick={this.props.handleEdit}>Edit</div>
         </div>
       );
     }
@@ -111,8 +111,8 @@ var Editor = React.createClass({
 
   render() {
     return (
-      <div className="eight columns body-text">
-        <form className="ten columns body-text text-area" role="form">
+      <div className="body-text">
+        <form className="body-text text-area" role="form">
           <textarea
             value={this.state.text}
             onKeyDown={this.checkSubmit}
@@ -152,10 +152,12 @@ var Post = React.createClass({
         post={this.props.post} />
     );
     return (
-      <div className="row card post">
-        <PostMeta post={this.props.post}/>
-        {!this.state.editing && post}
+      <div className="post">
         {this.props.isAdmin && adminArea}
+        <div className="flex-box">
+          <PostMeta post={this.props.post}/>
+          {!this.state.editing && post}
+        </div>
       </div>
     );
   }

@@ -26,12 +26,12 @@ var NewPost = React.createClass({
   render() {
     return (
       <div className="NewPost container">
-        <div className="row card">
+        <div className="row">
           <form className="ten columns body-text text-area" role="form">
-            <textarea onKeyDown={this.checkSubmit} ref="text"></textarea>
+            <textarea className="card" onKeyDown={this.checkSubmit} ref="text"></textarea>
           </form>
           <div className="two columns">
-            <button onClick={this.handleSubmit}>Comment</button>
+            <div className="hyperbutton" onClick={this.handleSubmit}>Comment</div>
           </div>
         </div>
       </div>

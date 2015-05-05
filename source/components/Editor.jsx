@@ -24,7 +24,7 @@ var NewPost = React.createClass({
       <div className="NewPost container">
         <div className="row card">
           <div className="two columns">
-            <button onClick={this.handleSubmit}>Comment</button>
+            <div className="hyperbutton" onClick={this.handleSubmit}>Comment</div>
           </div>
           <form className="ten columns body-text text-area" role="form">
             <textarea onKeyDown={this.checkSubmit} ref="text"></textarea>

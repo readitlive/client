@@ -43,7 +43,7 @@ var NewEvent = React.createClass({
       <div className="row card post">
         <span>Create New Event:</span>
         <input ref="title" placeholder="Event Name" />
-        <button onClick={this.create}>Create</button>
+        <div className="hyperbutton" onClick={this.create}>Create</div>
       </div>
     );
   }
