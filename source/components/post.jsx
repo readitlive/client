@@ -2,6 +2,8 @@ var React = require('react');
 var PostsActions = require('../actions/PostsActions');
 var constants = require('../constants/constants');
 
+var NewPost = require('./NewPost');
+
 require('./__styles__/Post.styl');
 
 var PostMeta = React.createClass({
@@ -40,6 +42,7 @@ var AdminArea = React.createClass({
     post: React.PropTypes.object.isRequired,
     editing: React.PropTypes.bool.isRequired,
     handleSubmit: React.PropTypes.func.isRequired,
+    handleReply: React.PropTypes.func.isRequired,
     handleCancel: React.PropTypes.func.isRequired,
     handleEdit: React.PropTypes.func.isRequired
   },
@@ -71,6 +74,7 @@ var AdminArea = React.createClass({
     } else {
       return (
         <div className="flex-right">
+          <div className="hyperbutton" onClick={this.props.handleReply}>Reply</div>
           <div className="hyperbutton" onClick={this.handleDelete}>Delete</div>
           <div className="hyperbutton" onClick={this.props.handleEdit}>Edit</div>
         </div>
@@ -141,6 +145,34 @@ var Post = React.createClass({
     PostsActions.update(this.props.post._id, entry, () => this.setState({editing: false}))
   },
 
+  renderReplies() {
+    var replyEntry = function(reply, i) {
+      return (
+        <div className="flex-box" key={i}>
+          <PostMeta post={reply}/>
+          <PostText post={reply}/>)
+        </div>
+      );
+    };
+    return (
+      <div style={{marginRight: '8%'}}>
+        {this.props.post.replies.map(replyEntry)}
+      </div>
+    );
+  },
+
+  submitReply(replyText) {
+    PostsActions.reply(this.props.post, replyText);
+  },
+
+  renderReplyEditor() {
+    return (
+      <div style={{marginRight: '8%'}}>
+        <NewPost submitAction={this.submitReply} />
+      </div>
+    );
+  },
+
   render() {
     var post = (<PostText post={this.props.post}/>);
 
@@ -149,9 +181,11 @@ var Post = React.createClass({
         handleEdit={() => this.setState({editing: true})}
         handleCancel={() => this.setState({editing: false})}
         handleSubmit={this.handleSubmit}
+        handleReply={() => this.setState({replying: true})}
         editing={this.state.editing}
         post={this.props.post} />
     );
+
     return (
       <div className="post">
         {this.props.isAdmin && adminArea}
@@ -159,6 +193,8 @@ var Post = React.createClass({
           <PostMeta post={this.props.post}/>
           {!this.state.editing && post}
         </div>
+        {this.props.post.replies && this.renderReplies()}
+        {this.state.replying && this.renderReplyEditor()}
       </div>
     );
   }

@@ -4,6 +4,15 @@ var EventStore = require('../stores/EventStore');
 var API = require('../helpers/ApiHelper');
 var LoginStore = require('../stores/LoginStore');
 
+var getTimeEU = function() {
+  var timeNow = new Date();
+  var euh = timeNow.getUTCHours() + 2;
+  if (euh < 10 ) { euh = "0" + euh; }
+  var eum = timeNow.getUTCMinutes();
+  if (eum < 10 ) { eum = "0" + eum; }
+  return euh + ":" + eum + " CEST";
+};
+
 var PostActionsCreators = {
   receivePosts(err, data) {
     if (err) return console.log(err);
@@ -21,17 +30,11 @@ var PostActionsCreators = {
     });
   },
 
-  submit(postText, isComment) {
-    var timeNow = new Date();
-    var euh = timeNow.getUTCHours() + 2;
-    if (euh < 10 ) { euh = "0" + euh; }
-    var eum = timeNow.getUTCMinutes();
-    if (eum < 10 ) { eum = "0" + eum; }
-    var timeEUString = euh + ":" + eum + " CEST";
-
+  submit(postText) {
+    var timeEUString = getTimeEU();
     var user = LoginStore.getCurrentUser();
-
     var eventId = EventStore.getEvent()._id;
+
     var data = {
       postText: postText,
       eventId: eventId,
@@ -40,11 +43,7 @@ var PostActionsCreators = {
       avatarUrl: user.avatarUrl,
       timeEU: timeEUString
     };
-    if (isComment) {
-      API('POST', 'event/' + eventId + '/comment', data, () => {});
-    } else {
-      API('POST', 'event/' + eventId, data, () => {});
-    }
+    API('POST', 'event/' + eventId, data, () => {});
   },
 
   update(entryId, newPostText, callback) {
@@ -57,6 +56,25 @@ var PostActionsCreators = {
 
   delete(post) {
     API('DELETE', 'event/' + post.eventId + '/entry/' + post._id, {}, () => {});
+  },
+
+  reply(entry, replyText) {
+    var user = LoginStore.getCurrentUser();
+    var timeEUString = getTimeEU();
+    var eventId = EventStore.getEvent()._id;
+    var reply = {
+      replyText: replyText,
+      author: user.username,
+      avatarUrl: user.avatarUrl,
+      timeEU: timeEUString
+    };
+    if (entry.replies && entry.replies.length) {
+      entry.replies.push(reply);
+    } else {
+      entry.replies = [reply];
+    }
+
+    API('PUT', 'event/' + eventId + '/entry/' + entry._id, entry, () => {});
   }
 };
 

@@ -5,14 +5,14 @@ require('./__styles__/NewPost.styl');
 
 var NewPost = React.createClass({
   propTypes: {
-    isComment: React.PropTypes.bool.isRequired
+    submitAction: React.PropTypes.func.isRequired
   },
 
   handleSubmit(e) {
     e.preventDefault();
     var entryText = this.refs.text.getDOMNode().value;
     if (entryText) {
-      PostsActions.submit(entryText, this.props.isComment);
+      this.props.submitAction(entryText);
       this.refs.text.getDOMNode().value = '';
     }
   },
@@ -25,15 +25,11 @@ var NewPost = React.createClass({
 
   render() {
     return (
-      <div className="NewPost container">
-        <div className="row">
-          <form className="ten columns body-text text-area" role="form">
-            <textarea className="card" onKeyDown={this.checkSubmit} ref="text"></textarea>
-          </form>
-          <div className="two columns">
-            <div className="hyperbutton" onClick={this.handleSubmit}>Comment</div>
-          </div>
-        </div>
+      <div className="NewPost flex-box">
+        <form className="body-text text-area" role="form">
+          <textarea className="card" onKeyDown={this.checkSubmit} ref="text"></textarea>
+        </form>
+        <div className="hyperbutton" onClick={this.handleSubmit}>Comment</div>
       </div>
     );
   }

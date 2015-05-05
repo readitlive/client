@@ -6,6 +6,8 @@ var PostsStore = require('../stores/PostsStore');
 var EventStore = require('../stores/EventStore');
 var LoginStore = require('../stores/LoginStore');
 
+var CommentsActions = require('../actions/CommentsActions');
+var PostsActions = require('../actions/PostsActions');
 var SocketActions = require('../actions/SocketActions');
 var WSHelper = require('../helpers/WSHelper');
 
@@ -75,7 +77,7 @@ var WriteApp = React.createClass({
     return (
       <div>
         <TopBar event={this.state.event} user={this.state.user} isAdmin={this.state.isAdmin}/>
-        {this.state.user && <NewPost isComment={!isAdmin} />}
+        {this.state.user && <NewPost submitAction={isAdmin ? PostsActions.submit : CommentsActions.submit} />}
         <div className="flex-box">
           <Feed isAdmin={this.state.isAdmin} postsData={this.state.postsData}/>
           {isAdmin && <CommentsDisplay />}

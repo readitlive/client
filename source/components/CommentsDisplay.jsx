@@ -20,7 +20,7 @@ var CommentEntry = React.createClass({
 
   handlePost(e) {
     e.stopPropagation();
-    CommentsActions.post(this.props.comment);
+    CommentsActions.submitCommentAsPost(this.props.comment);
   },
 
   render() {
