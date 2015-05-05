@@ -63,7 +63,7 @@ var PostActionsCreators = {
     var timeEUString = getTimeEU();
     var eventId = EventStore.getEvent()._id;
     var reply = {
-      replyText: replyText,
+      postText: replyText,
       author: user.username,
       avatarUrl: user.avatarUrl,
       timeEU: timeEUString

@@ -31,7 +31,7 @@ var PostText = React.createClass({
     return (
       <div className="body-text card" style={{flex: 1, 'margin-left': '24px'}}>
         <div className="author-name">{this.props.post.author}</div>
-        <div dangerouslySetInnerHTML={{__html: this.props.post.postText}}/>
+        <div dangerouslySetInnerHTML={{__html: this.props.post.postText || this.props.post.replyText}}/>
       </div>
     );
   }
@@ -148,14 +148,14 @@ var Post = React.createClass({
   renderReplies() {
     var replyEntry = function(reply, i) {
       return (
-        <div className="flex-box" key={i}>
+        <div className="flex-box" style={{marginTop: '20px'}} key={i}>
           <PostMeta post={reply}/>
-          <PostText post={reply}/>)
+          <PostText post={reply}/>
         </div>
       );
     };
     return (
-      <div style={{marginRight: '8%'}}>
+      <div style={{marginLeft: '100px'}}>
         {this.props.post.replies.map(replyEntry)}
       </div>
     );
