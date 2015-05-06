@@ -75,7 +75,19 @@ var PostActionsCreators = {
     }
 
     API('PUT', 'event/' + eventId + '/entry/' + entry._id, entry, () => {});
-  }
+  },
+
+  deleteReply(entry, index) {
+    var eventId = EventStore.getEvent()._id;
+    entry.replies.splice(index, 1);
+    API('PUT', 'event/' + eventId + '/entry/' + entry._id, entry, () => {});
+  },
+
+  editReply(entry, reply, index) {
+    var eventId = EventStore.getEvent()._id;
+    entry.replies[index] = reply;
+    API('PUT', 'event/' + eventId + '/entry/' + entry._id, entry, () => {});
+  },
 };
 
 module.exports = PostActionsCreators;

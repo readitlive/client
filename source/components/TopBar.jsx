@@ -25,7 +25,6 @@ var TopBar = React.createClass({
     return {event: {}};
   },
 
-  //if the user is not logged in, show sign in/up
   componentDidMount() {
     ViewerCountStore.addChangeListener(this.checkStores);
   },
@@ -54,14 +53,14 @@ var TopBar = React.createClass({
     );
 
     return (
-      <div onClick={this.toggleMenu} className="hyperbutton nevbar-text">
-        {statusText}
+      <div onClick={this.toggleMenu} className="hyperbutton navbar-text">
+        {statusText + ' — Event settings'}
         {this.state.liveMenu && menu}
       </div>
     );
   },
 
-  render: function() {
+  render() {
     var isLive = this.props.event.eventIsLive ? 'Live' : 'Event Ended';
     return (
       <nav className="card TopBar" role="navigation">

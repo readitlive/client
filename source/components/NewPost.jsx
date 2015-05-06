@@ -5,7 +5,8 @@ require('./__styles__/NewPost.styl');
 
 var NewPost = React.createClass({
   propTypes: {
-    submitAction: React.PropTypes.func.isRequired
+    submitAction: React.PropTypes.func.isRequired,
+    handleCancel: React.PropTypes.func
   },
 
   handleSubmit(e) {
@@ -23,13 +24,28 @@ var NewPost = React.createClass({
     }
   },
 
+  onCancel(e) {
+    if (this.props.handleCancel) {
+      this.props.handleCancel();
+    }
+  },
+
+  renderCancel() {
+    return (
+      <div className="hyperbutton" onClick={this.onCancel}>Cancel</div>
+    );
+  },
+
   render() {
     return (
-      <div className="NewPost flex-box">
-        <form className="body-text text-area" role="form">
+      <div className="NewPost">
+        <form className="body-text text-area flex-right" role="form">
           <textarea className="card" onKeyDown={this.checkSubmit} ref="text"></textarea>
         </form>
-        <div className="hyperbutton" onClick={this.handleSubmit}>Comment</div>
+        <div className="flex-right">
+          {this.props.handleCancel && this.renderCancel()}
+          <div className="hyperbutton" onClick={this.handleSubmit}>Comment</div>
+        </div>
       </div>
     );
   }
