@@ -1,20 +1,6 @@
-
-
-
-// var img = document.createElement("img");
-// img.src = window.URL.createObjectURL(file);
-
-// img.onload = function() {
-//     var canvas = document.createElement("canvas");
-//     new thumbnailer(canvas, img, 188, 3); //this produces lanczos3
-//     // but feel free to raise it up to 8. Your client will appreciate
-//     // that the program makes full use of his machine.
-//     document.body.appendChild(canvas);
-// };
-
 // From:
 // http://stackoverflow.com/questions/18922880/html5-canvas-resize-downscale-image-high-quality
-exports.resizeCanvasImage = function(img, maxWidth, maxHeight) {
+var resizeCanvasImage = function(img, maxWidth, maxHeight) {
     var imgWidth = img.width,
         imgHeight = img.height;
 
@@ -45,7 +31,6 @@ exports.resizeCanvasImage = function(img, maxWidth, maxHeight) {
     canvasCopy2.height = imgHeight;
     copyContext2.drawImage(canvasCopy, 0, 0, canvasCopy.width, canvasCopy.height, 0, 0, canvasCopy2.width, canvasCopy2.height);
 
-
     var rounds = 2;
     var roundRatio = ratio * rounds;
     for (var i = 1; i <= rounds; i++) {
@@ -64,11 +49,30 @@ exports.resizeCanvasImage = function(img, maxWidth, maxHeight) {
 
     } // end for
 
-
     // copy back to canvas
     canvas.width = imgWidth * roundRatio / rounds;
     canvas.height = imgHeight * roundRatio / rounds;
     canvasContext.drawImage(canvasCopy2, 0, 0, canvasCopy2.width, canvasCopy2.height, 0, 0, canvas.width, canvas.height);
+    return canvas.toDataURL();
+};
 
 
-}
+// var img = document.createElement("img");
+// img.src = window.URL.createObjectURL(file);
+
+// img.onload = function() {
+//     var canvas = document.createElement("canvas");
+//     new thumbnailer(canvas, img, 188, 3); //this produces lanczos3
+//     // but feel free to raise it up to 8. Your client will appreciate
+//     // that the program makes full use of his machine.
+//     document.body.appendChild(canvas);
+// };
+
+exports.loadAndResize = function(file, size, callback) {
+  var img = document.createElement("img");
+  img.src = window.URL.createObjectURL(file);
+
+  img.onload = function() {
+    callback(resizeCanvasImage(img, size, size));
+  };
+};

@@ -3,6 +3,7 @@ var React = require('react');
 var LoginStore = require('../stores/LoginStore');
 var LoginActions = require('../actions/LoginActions');
 var constants = require('../constants/constants');
+var S3Uploader = require('../libs/S3Uploader');
 
 require('./__styles__/UserBox.styl');
 
@@ -185,6 +186,10 @@ var User = React.createClass({
     });
   },
 
+  handleImageUpload() {
+    // PUT the current user
+  },
+
   render() {
     var avatar = this.props.user.avatarUrl || constants.Default_Avatar;
     var dropdown;
@@ -219,7 +224,7 @@ var User = React.createClass({
       dropdown = (
         <div className="login-dropdown card">
           <h5 className="margin-0">Upload new avatar:</h5>
-          <input type="file" className="btn" id="avatar-upload-file" />
+          <S3Uploader size={80} onFinish={this.handleImageUpload}/>
           <div
             className="hyperbutton"
             onClick={this.expandToggle}>

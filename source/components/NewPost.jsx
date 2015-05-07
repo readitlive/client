@@ -27,6 +27,12 @@ var NewPost = React.createClass({
     }
   },
 
+  handleImageUpload(signingData) {
+    this.refs.text.getDOMNode().value = this.refs.text.getDOMNode().value +
+      '<img src="https://liveblogphotos2.s3-us-west-2.amazonaws.com/' +
+      signingData.filename + '" class="post-image"></img>';
+  },
+
   onCancel(e) {
     if (this.props.handleCancel) {
       this.props.handleCancel();
@@ -47,8 +53,8 @@ var NewPost = React.createClass({
         </form>
         <div className="flex-right">
           {this.props.handleCancel && this.renderCancel()}
+          {this.props.imageUpload && <S3Uploader onFinish={this.handleImageUpload}/>}
           <div className="hyperbutton" onClick={this.handleSubmit}>Comment</div>
-          {this.props.imageUpload && <S3Uploader signingUrl="fake"/>}
         </div>
       </div>
     );

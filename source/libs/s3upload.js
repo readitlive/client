@@ -1,9 +1,13 @@
+// https://github.com/odysseyscience/react-s3-uploader
+
+
 /**
  * Taken, CommonJS-ified, and heavily modified from:
  * https://github.com/flyingsparx/NodeDirectUploader
  */
 
-S3Upload.prototype.signingUrl = '/sign-s3';
+var imageresize = require('./imageresize');
+
 S3Upload.prototype.fileElement = null;
 
 S3Upload.prototype.onFinishS3Put = function(signResult) {
@@ -22,7 +26,7 @@ function S3Upload(options) {
     if (options === null) {
         options = {};
     }
-    for (option in options) {
+    for (var option in options) {
         if (options.hasOwnProperty(option)) {
             this[option] = options[option];
         }
@@ -103,7 +107,7 @@ S3Upload.prototype.uploadToS3 = function(file) {
         xhr.onload = function() {
             if (xhr.status === 200) {
                 this.onProgress(100, 'Upload completed.');
-                return this.onFinishS3Put(this.signingUrl);
+                return this.onFinishS3Put(this.signingData);
             } else {
                 return this.onError('Upload error: ' + xhr.status);
             }
@@ -125,10 +129,13 @@ S3Upload.prototype.uploadToS3 = function(file) {
 };
 
 S3Upload.prototype.uploadFile = function(file) {
-  return this.uploadToS3(file);
-    // return this.executeOnSignedUrl(file, function(signResult) {
-    //     return this.uploadToS3(file, signResult);
-    // }.bind(this));
+  if (this.size) {
+    imageresize.loadAndResize(file, this.size, (smallFile) => {
+      this.uploadToS3(smallFile);
+    });
+  } else {
+    this.uploadToS3(file);
+  }
 };
 
 
