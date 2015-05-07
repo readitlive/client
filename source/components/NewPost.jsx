@@ -1,11 +1,14 @@
 var React = require('react');
 var PostsActions = require('../actions/PostsActions');
 
+var S3Uploader = require('../libs/S3Uploader');
+
 require('./__styles__/NewPost.styl');
 
 var NewPost = React.createClass({
   propTypes: {
     submitAction: React.PropTypes.func.isRequired,
+    imageUpload: React.PropTypes.bool,
     handleCancel: React.PropTypes.func
   },
 
@@ -45,6 +48,7 @@ var NewPost = React.createClass({
         <div className="flex-right">
           {this.props.handleCancel && this.renderCancel()}
           <div className="hyperbutton" onClick={this.handleSubmit}>Comment</div>
+          {this.props.imageUpload && <S3Uploader signingUrl="fake"/>}
         </div>
       </div>
     );
