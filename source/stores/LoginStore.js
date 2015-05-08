@@ -20,6 +20,11 @@ var _loginUser = function(userData, authToken, exp) {
   window.localStorage.setItem('ril-auth-exp', exp);
 };
 
+var _updateUser = function(userData) {
+  _currentUser = userData;
+  window.localStorage.setItem('ril-current-user', JSON.stringify(userData));
+};
+
 var _logoutUser = function() {
   _currentUser = null;
   _authToken = null;
@@ -75,6 +80,10 @@ LoginStore.dispatcherToken = AppDispatcher.register(function(payload) {
   switch (action.actionType) {
     case constants.RECEIVE_LOGIN_USER:
       _loginUser(action.user, action.token, action.exp);
+      LoginStore.emitChange();
+      break;
+    case constants.RECEIVE_USER:
+      _updateUser(action.user);
       LoginStore.emitChange();
       break;
     case constants.LOGOUT_USER:

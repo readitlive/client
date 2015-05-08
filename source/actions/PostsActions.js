@@ -40,7 +40,7 @@ var PostActionsCreators = {
       eventId: eventId,
       postIsComment: false,
       author: user.username,
-      avatarUrl: user.avatarUrl,
+      avatarUrl: user.profile && user.profile.avatarUrl,
       timeEU: timeEUString
     };
     API('POST', 'event/' + eventId, data, () => {});
@@ -65,7 +65,7 @@ var PostActionsCreators = {
     var reply = {
       postText: replyText,
       author: user.username,
-      avatarUrl: user.avatarUrl,
+      avatarUrl: user.profile && user.profile.avatarUrl,
       timeEU: timeEUString
     };
     if (entry.replies && entry.replies.length) {

@@ -151,7 +151,7 @@ var Login = React.createClass({
 
     return (
       <div className="LoginBox">
-        <span onClick={this.expandToggle} className="login-text">Sign in/up</span>
+        <div onClick={this.expandToggle} className="hyperbutton">Sign in/up</div>
         {dropdown}
       </div>
     );
@@ -186,12 +186,17 @@ var User = React.createClass({
     });
   },
 
-  handleImageUpload() {
-    // PUT the current user
+  handleUploadComplete(data) {
+    LoginActions.updateAvatar(data)
+    this.setState({
+      avatarAdd: false,
+      expanded: false
+    });
   },
 
   render() {
-    var avatar = this.props.user.avatarUrl || constants.Default_Avatar;
+    var avatar = (this.props.user.profile && this.props.user.profile.avatarUrl) || constants.Default_Avatar;
+
     var dropdown;
 
     if (this.state.expanded) {
@@ -224,7 +229,7 @@ var User = React.createClass({
       dropdown = (
         <div className="login-dropdown card">
           <h5 className="margin-0">Upload new avatar:</h5>
-          <S3Uploader size={80} onFinish={this.handleImageUpload}/>
+          <S3Uploader size={80} onFinish={this.handleUploadComplete}/>
           <div
             className="hyperbutton"
             onClick={this.expandToggle}>
