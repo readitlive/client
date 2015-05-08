@@ -53,7 +53,7 @@ var resizeCanvasImage = function(img, maxWidth, maxHeight) {
     canvas.width = imgWidth * roundRatio / rounds;
     canvas.height = imgHeight * roundRatio / rounds;
     canvasContext.drawImage(canvasCopy2, 0, 0, canvasCopy2.width, canvasCopy2.height, 0, 0, canvas.width, canvas.height);
-    return canvas.toDataURL();
+    return canvas.toDataURL('image/jpeg', 0.8);
 };
 
 
