@@ -30,7 +30,7 @@ var PostText = React.createClass({
   render() {
     return (
       <div className="body-text card" style={{flex: 1, 'margin-left': '24px'}}>
-        <div className="author-name">{this.props.post.author}</div>
+        <div className="author-name">{this.props.post.author}:</div>
         <div dangerouslySetInnerHTML={{__html: this.props.post.postText || this.props.post.replyText}}/>
       </div>
     );

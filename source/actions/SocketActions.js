@@ -40,6 +40,9 @@ var SocketActionsCreators = {
         event: data.event
       });
     }
+    if (type === 'System' && method === 'reload') {
+      window.location.href = window.location.href;
+    }
   }
 };
 

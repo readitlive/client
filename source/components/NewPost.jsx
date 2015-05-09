@@ -9,7 +9,8 @@ var NewPost = React.createClass({
   propTypes: {
     submitAction: React.PropTypes.func.isRequired,
     imageUpload: React.PropTypes.bool,
-    handleCancel: React.PropTypes.func
+    handleCancel: React.PropTypes.func,
+    customAction: React.PropTypes.object
   },
 
   handleSubmit(e) {
@@ -45,6 +46,24 @@ var NewPost = React.createClass({
     );
   },
 
+  handleCustom(e) {
+    e.preventDefault();
+    var entryText = this.refs.text.getDOMNode().value;
+    if (entryText) {
+      this.props.customAction.action(entryText);
+      this.refs.text.getDOMNode().value = '';
+    }
+  },
+
+  renderCustom() {
+    return (
+      <div onClick={this.handleCustom}
+        className="hyperbutton">
+        {this.props.customAction.label}
+      </div>
+    );
+  },
+
   render() {
     return (
       <div className="NewPost">
@@ -52,8 +71,9 @@ var NewPost = React.createClass({
           <textarea className="card" onKeyDown={this.checkSubmit} ref="text"></textarea>
         </form>
         <div className="flex-right">
-          {this.props.handleCancel && this.renderCancel()}
           {this.props.imageUpload && <S3Uploader onFinish={this.handleImageUpload}/>}
+          {this.props.handleCancel && this.renderCancel()}
+          {this.props.customAction && this.renderCustom()}
           <div className="hyperbutton" onClick={this.handleSubmit}>Comment</div>
         </div>
       </div>

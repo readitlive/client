@@ -151,7 +151,7 @@ var Login = React.createClass({
 
     return (
       <div className="LoginBox">
-        <div onClick={this.expandToggle} className="hyperbutton">Sign in/up</div>
+        <div onClick={this.expandToggle} className="hyperbutton navbar-text">Sign in/up</div>
         {dropdown}
       </div>
     );

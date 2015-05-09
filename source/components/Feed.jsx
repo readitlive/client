@@ -23,7 +23,7 @@ var Feed = React.createClass({
     }
 
     return (
-      <div className="container">
+      <div className="ril-container" style={{flex: 1}}>
         {postNodes}
       </div>
     );

@@ -13,5 +13,5 @@ module.exports = {
   RECEIVE_COMMENT: 'RECEIVE_COMMENT',
   RECEIVE_COMMENTS: 'RECEIVE_COMMENTS',
   DELETE_COMMENT: 'DELETE_COMMENT',
-  Default_Avatar: 'img/default-avatar.png'
+  Default_Avatar: '/img/default-avatar.png'
 };

@@ -15,7 +15,7 @@ var stub = React.createClass({
 
 var routes = (
   <Route name='app' path='/' handler={stub}>
-    <Route name='write' path='write/?:eventId?' handler={WriteApp} />
+    <Route name='write' path='/:eventId' handler={WriteApp} />
     <DefaultRoute name='events' handler={EventsList} />
   </Route>
 );

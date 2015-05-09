@@ -14,7 +14,7 @@ var Event = React.createClass({
   render() {
     return (
       <div className="row card post">
-        <Link to={'/write/' + this.props.event._id}>
+        <Link to={'write'} params={{eventId: this.props.event._id}}>
           {this.props.event.eventTitle}
         </Link>
         <span>{this.props.event.eventIsLive ? 'Live' : 'Ended'}</span>
@@ -95,7 +95,7 @@ var EventsList = React.createClass({
     }
 
     return (
-      <div className="container">
+      <div className="ril-container">
         <div className="flex-right">
           <UserBox user={this.state.user}/>
         </div>

@@ -30,10 +30,16 @@ var PostActionsCreators = {
     });
   },
 
-  submit(postText) {
+  submit(postText, embed) {
     var timeEUString = getTimeEU();
     var user = LoginStore.getCurrentUser();
     var eventId = EventStore.getEvent()._id;
+
+    if (!embed) {
+      postText = postText.replace(/(www\..+?)(\s|$)/g, function(text, link) {
+         return '<a href="http://'+ link +'"target="_blank">'+ link +'</a>';
+      });
+    }
 
     var data = {
       postText: postText,
