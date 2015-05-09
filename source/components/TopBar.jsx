@@ -79,7 +79,7 @@ var TopBar = React.createClass({
         </form>
         {this.props.isAdmin ? this.renderLiveToggle(isLive) : <div className="navbar-text">{isLive}</div> }
         <div className="navbar-text">Reader Count: {this.state.viewerCount}</div>
-        <UserBox userLogin={this.props.handleLogin} user={this.props.user}/>
+        <UserBox user={this.props.user}/>
       </nav>
     );
   }

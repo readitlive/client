@@ -3,7 +3,7 @@ var sock;
 
 var WSHelper = {
   connect(eventId, callback) {
-    sock = new SockJS('http://localhost:3080/ws');
+    sock = new SockJS('http://104.236.225.58:3080/ws');
     sock.onmessage = function(e) {
         callback(JSON.parse(e.data));
     };

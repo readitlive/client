@@ -1,6 +1,7 @@
 module.exports = {
   entry: {
     app: ['webpack/hot/dev-server', './source/main.js']
+    // app: ['./source/main.js']
   },
   output: {
     path: './public/build',

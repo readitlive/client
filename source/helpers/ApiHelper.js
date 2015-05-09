@@ -3,7 +3,7 @@ var LoginStore = require('../stores/LoginStore');
 module.exports = function(requestType, requestURL, data, callback) {
   var request, token;
   request = new XMLHttpRequest();
-  request.open(requestType, 'http://localhost:3000/api/' + requestURL, true);
+  request.open(requestType, 'http://104.236.225.58:80/api/' + requestURL, true);
   request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
   token = LoginStore.getAuthToken();
   if (token) {
