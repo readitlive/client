@@ -81,7 +81,7 @@ var WriteApp = React.createClass({
           <NewPost
             imageUpload={isAdmin}
             submitAction={isAdmin ? PostsActions.submit : CommentsActions.submit}
-            customAction={{label: "<Embed>", action: (postText) => PostsActions.submit(postText, true)}}/>
+            customAction={isAdmin ? {label: "<Embed>", action: (postText) => PostsActions.submit(postText, true)} : {}}/>
         }
         <div className="flex-box">
           <Feed isAdmin={this.state.isAdmin} postsData={this.state.postsData}/>
