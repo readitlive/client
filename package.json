@@ -24,7 +24,7 @@
     "test": "jest",
     "serve": "webpack-dev-server --content-base public/ --hot -d",
     "build": "webpack --optimize-minimize",
-    "deploy": "scp -r public/ root@104.236.225.58:/www/public"
+    "deploy": "ssh root@104.236.225.58 'rm -rf /www/public' && scp -r public/ root@104.236.225.58:/www/public"
   },
   "jest": {
     "testFileExtensions": [
