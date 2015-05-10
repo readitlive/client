@@ -65,7 +65,7 @@ var TopBar = React.createClass({
     return (
       <nav className="card TopBar" role="navigation">
         <Link to="events" className="navbar-brand">Live Update Guy</Link>
-        <div className="navbar-text" style={{flex: 1}}>{this.props.event.eventTitle}</div>
+        <div className="navbar-text flex-1">{this.props.event.eventTitle}</div>
         <form action="https://www.paypal.com/cgi-bin/webscr" method="post" className="navbar-text paypal-button" target="_blank">
           <input type="hidden" name="cmd" value="_donations" />
           <input type="hidden" name="business" value="charles@pelkey.com" />

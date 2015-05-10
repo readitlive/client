@@ -52,6 +52,13 @@ var WriteApp = React.createClass({
     PostsStore.addChangeListener(this.handleStoreChange);
   },
 
+  componentWillUpdate(nextProps, nextState) {
+    if (nextState.event._id !== this.state.event._id) {
+      window.document.title = nextState.event.eventTitle;
+    }
+
+  },
+
   componentDidUpdate() {
     var eventId = this.context.router.getCurrentParams().eventId;
     if (eventId !== this.state.eventId) {
