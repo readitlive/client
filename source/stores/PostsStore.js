@@ -29,11 +29,13 @@ var PostsStore = assign({}, EventEmitter.prototype, {
   },
   getPosts: function() {
     if (_posts.length) {
-      // var sortedPosts = R.sortBy(R.prop('time'), _posts);
+      var sortedPosts = R.sortBy(function(e) {
+        return new Date(e.time).valueOf();
+      }, _posts);
       if (EventStore.eventIsLive()) {
-        return R.reverse(_posts);
+        return R.reverse(sortedPosts);
       } else {
-        return _posts;
+        return sortedPosts;
       }
     }
     return [];

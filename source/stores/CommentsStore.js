@@ -28,8 +28,10 @@ var CommentsStore = assign({}, EventEmitter.prototype, {
   },
   getComments: function() {
     if (_comments.length) {
-      // var sortedComments = R.sortBy(R.prop('time'), _comments);
-      return R.reverse(_comments);
+      var sortedComments = R.sortBy(function(e) {
+        return new Date(e.time).valueOf();
+      }, _comments);
+      return R.reverse(sortedComments);
     }
     return [];
   }
