@@ -91,7 +91,7 @@ var EventsList = React.createClass({
   render() {
     var events;
     if (this.state.data) {
-      events = R.map((event, i) => {
+      events = R.mapIndexed((event, i) => {
         return (
           <Event event={event} key={i}/>
         );

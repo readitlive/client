@@ -4,15 +4,6 @@ var EventStore = require('../stores/EventStore');
 var API = require('../helpers/ApiHelper');
 var LoginStore = require('../stores/LoginStore');
 
-var getTimeEU = function() {
-  var timeNow = new Date();
-  var euh = timeNow.getUTCHours() + 2;
-  if (euh < 10 ) { euh = "0" + euh; }
-  var eum = timeNow.getUTCMinutes();
-  if (eum < 10 ) { eum = "0" + eum; }
-  return euh + ":" + eum + " CEST";
-};
-
 var CommentsActions = {
   delete(comment) {
     API('DELETE', 'event/' + comment.eventId + '/comment/' + comment._id, {}, () => {
@@ -32,17 +23,14 @@ var CommentsActions = {
   },
 
   submit(postText) {
-    var timeEUString = getTimeEU();
     var user = LoginStore.getCurrentUser();
     var eventId = EventStore.getEvent()._id;
 
     var data = {
       postText: postText,
       eventId: eventId,
-      postIsComment: false,
       author: user.username,
-      avatarUrl: user.profile && user.profile.avatarUrl,
-      timeEU: timeEUString
+      avatarUrl: user.profile && user.profile.avatarUrl
     };
     API('POST', 'event/' + eventId + '/comment', data, () => {});
   },
@@ -51,10 +39,8 @@ var CommentsActions = {
     var data = {
       postText: comment.postText,
       eventId: comment.eventId,
-      postIsComment: false,
       author: comment.author,
-      avatarUrl: comment.avatarUrl,
-      timeEU: comment.timeEU
+      avatarUrl: comment.avatarUrl
     };
 
     API('POST', 'event/' + comment.eventId, data, () => {

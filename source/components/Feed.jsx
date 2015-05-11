@@ -15,7 +15,7 @@ var Feed = React.createClass({
   render() {
     var postNodes;
     if (this.props.postsData) {
-      postNodes = R.map((post, i) => {
+      postNodes = R.mapIndexed((post, i) => {
         return (
           <Post post={post} isAdmin={this.props.isAdmin} key={i}/>
         );

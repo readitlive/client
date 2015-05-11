@@ -80,7 +80,7 @@ var CommentsDisplay = React.createClass({
   render() {
     return (
       <div className="CommentsDisplay">
-        {this.state.comments && R.map(this.renderComment, this.state.comments)}
+        {this.state.comments && R.mapIndexed(this.renderComment, this.state.comments)}
       </div>
     );
   }

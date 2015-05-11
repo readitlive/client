@@ -4,15 +4,6 @@ var EventStore = require('../stores/EventStore');
 var API = require('../helpers/ApiHelper');
 var LoginStore = require('../stores/LoginStore');
 
-var getTimeEU = function() {
-  var timeNow = new Date();
-  var euh = timeNow.getUTCHours() + 2;
-  if (euh < 10 ) { euh = "0" + euh; }
-  var eum = timeNow.getUTCMinutes();
-  if (eum < 10 ) { eum = "0" + eum; }
-  return euh + ":" + eum + " CEST";
-};
-
 var PostActionsCreators = {
   receivePosts(err, data) {
     if (err) return console.log(err);
@@ -31,7 +22,6 @@ var PostActionsCreators = {
   },
 
   submit(postText, embed) {
-    var timeEUString = getTimeEU();
     var user = LoginStore.getCurrentUser();
     var eventId = EventStore.getEvent()._id;
 
@@ -39,6 +29,8 @@ var PostActionsCreators = {
       postText = postText.replace(/(www\..+?)(\s|$)/g, function(text, link) {
          return '<a href="http://'+ link +'"target="_blank">'+ link +'</a>';
       });
+    } else {
+      postText = '<div class="video-container">' + postText + '</div>';
     }
 
     var data = {
@@ -46,8 +38,7 @@ var PostActionsCreators = {
       eventId: eventId,
       postIsComment: false,
       author: user.username,
-      avatarUrl: user.profile && user.profile.avatarUrl,
-      timeEU: timeEUString
+      avatarUrl: user.profile && user.profile.avatarUrl
     };
     API('POST', 'event/' + eventId, data, () => {});
   },
