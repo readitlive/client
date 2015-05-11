@@ -41,8 +41,16 @@ var LoginActionsCreators = {
     });
   },
   receiveUserLogin(error, data) {
-    if (error) {
-
+    if (error && data.responseText) {
+      try {
+        data = JSON.parse(data.responseText);
+        return AppDispatcher.handleServerAction({
+          actionType: constants.RECEIVE_LOGIN_ERROR,
+          message: data.message
+        });
+      } catch (e) {
+        data = {};
+      }
     } else {
       return AppDispatcher.handleServerAction({
         actionType: constants.RECEIVE_LOGIN_USER,

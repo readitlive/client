@@ -47,7 +47,7 @@ var NewEvent = React.createClass({
       <div>
         <div className="row card post flex-box">
           <div>Create New Event:</div>
-          <input ref="title" placeholder="Event Name flex-1" style={{margin: "0 12px"}} />
+          <input ref="title" placeholder="Event Name" style={{margin: "0 12px"}} className="flex-1"/>
           <div className="hyperbutton" onClick={this.create}>Create</div>
         </div>
       </div>

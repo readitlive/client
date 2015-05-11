@@ -13,12 +13,13 @@ var getTimeEU = function() {
   return euh + ":" + eum + " CEST";
 };
 
-var CommentActions = {
+var CommentsActions = {
   delete(comment) {
-    API('DELETE', 'event/' + comment.eventId + '/comment/' + comment._id, {}, () => {});
-    return AppDispatcher.handleServerAction({
-      actionType: constants.DELETE_COMMENT,
-      commentId: comment._id
+    API('DELETE', 'event/' + comment.eventId + '/comment/' + comment._id, {}, () => {
+      return AppDispatcher.handleServerAction({
+        actionType: constants.DELETE_COMMENT,
+        commentId: comment._id
+      });
     });
   },
 
@@ -40,7 +41,7 @@ var CommentActions = {
       eventId: eventId,
       postIsComment: false,
       author: user.username,
-      avatarUrl: user.avatarUrl,
+      avatarUrl: user.profile && user.profile.avatarUrl,
       timeEU: timeEUString
     };
     API('POST', 'event/' + eventId + '/comment', data, () => {});
@@ -56,8 +57,10 @@ var CommentActions = {
       timeEU: comment.timeEU
     };
 
-    API('POST', 'event/' + comment.eventId, data, () => {});
+    API('POST', 'event/' + comment.eventId, data, () => {
+      CommentsActions.delete(comment);
+    });
   },
 };
 
-module.exports = CommentActions;
+module.exports = CommentsActions;

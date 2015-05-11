@@ -7,9 +7,10 @@ var constants = require('../constants/constants');
 
 var CHANGE_EVENT = 'change';
 
-var _currentUser = null;
-var _authToken = null;
-var _exp = null;
+var _currentUser;
+var _authToken;
+var _exp;
+var _loginError;
 
 var _loginUser = function(userData, authToken, exp) {
   _currentUser = userData;
@@ -61,6 +62,9 @@ var LoginStore = assign({}, EventEmitter.prototype, {
   removeChangeListener: function(callback) {
     return this.removeListener(CHANGE_EVENT, callback);
   },
+  getLoginError: function() {
+    return _loginError;
+  },
   getCurrentUser: function() {
     return _currentUser;
   },
@@ -80,10 +84,15 @@ LoginStore.dispatcherToken = AppDispatcher.register(function(payload) {
   switch (action.actionType) {
     case constants.RECEIVE_LOGIN_USER:
       _loginUser(action.user, action.token, action.exp);
+      _loginError = null;
       LoginStore.emitChange();
       break;
     case constants.RECEIVE_USER:
       _updateUser(action.user);
+      LoginStore.emitChange();
+      break;
+    case constants.RECEIVE_LOGIN_ERROR:
+      _loginError = action.message;
       LoginStore.emitChange();
       break;
     case constants.LOGOUT_USER:

@@ -14,7 +14,7 @@ var PostMeta = React.createClass({
   render() {
     var avatar = this.props.post.avatarUrl || constants.Default_Avatar;
     return (
-      <div style={{margin: '0 8px'}}>
+      <div className="metadata-area">
         <img className="img-responsive avatar-pic" height="80" width="80" src={avatar} />
         <p className="meta meta-time">{this.props.post.timeEU}</p>
       </div>
@@ -230,6 +230,7 @@ var Post = React.createClass({
 
   submitReply(replyText) {
     PostsActions.reply(this.props.post, replyText);
+    this.setState({replying: false});
   },
 
   renderReplyEditor() {

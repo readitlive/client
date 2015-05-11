@@ -24,8 +24,20 @@ var Login = React.createClass({
       signup: false,
       username: '',
       password: '',
-      confirmPassword: ''
+      confirmPassword: '',
+      errorMessage: LoginStore.getLoginError()
     };
+  },
+  componentDidMount() {
+    LoginStore.addChangeListener(this.checkStores);
+  },
+  componentWillUnmount() {
+    LoginStore.removeChangeListener(this.checkStores);
+  },
+  checkStores() {
+    this.setState({
+      errorMessage: LoginStore.getLoginError()
+    });
   },
 
   expandToggle() {
@@ -101,6 +113,7 @@ var Login = React.createClass({
                 Cancel
             </div>
           </div>
+          {this.state.errorMessage && <span style={{color: '#FF9494'}}>{this.state.errorMessage}</span>}
         </div>
       );
     }
@@ -144,6 +157,7 @@ var Login = React.createClass({
                   Cancel
               </div>
             </div>
+            {this.state.errorMessage && <span style={{color: '#FF9494'}}>{this.state.errorMessage}</span>}
           </div>
         </div>
       );

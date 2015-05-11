@@ -34,6 +34,12 @@ var SocketActionsCreators = {
         data: data
       });
     }
+    if (type === 'Comment' && method === 'delete') {
+      return AppDispatcher.handleServerAction({
+        actionType: constants.DELETE_COMMENT,
+        commentId: data.commentId
+      });
+    }
     if (type === 'Event' && method === 'put') {
       return AppDispatcher.handleServerAction({
         actionType: constants.RECEIVE_EVENT,
@@ -41,7 +47,7 @@ var SocketActionsCreators = {
       });
     }
     if (type === 'System' && method === 'reload') {
-      window.location.href = window.location.href;
+      location.reload(true);
     }
   }
 };

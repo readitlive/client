@@ -28,6 +28,7 @@ var CommentsStore = assign({}, EventEmitter.prototype, {
   },
   getComments: function() {
     if (_comments.length) {
+      // var sortedComments = R.sortBy(R.prop('time'), _comments);
       return R.reverse(_comments);
     }
     return [];
