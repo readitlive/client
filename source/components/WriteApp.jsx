@@ -72,6 +72,7 @@ var WriteApp = React.createClass({
     EventStore.removeChangeListener(this.handleStoreChange);
     LoginStore.removeChangeListener(this.handleStoreChange);
     PostsStore.removeChangeListener(this.handleStoreChange);
+    WSHelper.close();
   },
 
   handleStoreChange() {

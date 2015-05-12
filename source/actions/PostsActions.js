@@ -57,13 +57,11 @@ var PostActionsCreators = {
 
   reply(entry, replyText) {
     var user = LoginStore.getCurrentUser();
-    var timeEUString = getTimeEU();
     var eventId = EventStore.getEvent()._id;
     var reply = {
       postText: replyText,
       author: user.username,
-      avatarUrl: user.profile && user.profile.avatarUrl,
-      timeEU: timeEUString
+      avatarUrl: user.profile && user.profile.avatarUrl
     };
     if (entry.replies && entry.replies.length) {
       entry.replies.push(reply);

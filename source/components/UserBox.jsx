@@ -35,9 +35,11 @@ var Login = React.createClass({
     LoginStore.removeChangeListener(this.checkStores);
   },
   checkStores() {
-    this.setState({
-      errorMessage: LoginStore.getLoginError()
-    });
+    if (this.isMounted()) {
+      this.setState({
+        errorMessage: LoginStore.getLoginError()
+      });
+    }
   },
 
   expandToggle() {
