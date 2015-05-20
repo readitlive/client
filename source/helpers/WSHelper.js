@@ -1,8 +1,10 @@
 var SockJS = require('sockjs-client');
+var PostsStore = require('../stores/PostsStore');
+var EventStore = require('../stores/EventStore');
+
 var sock;
 var reconnect;
 
-var EventStore = require('../stores/EventStore');
 
 var WSHelper = {
   connect(eventId, callback) {
@@ -19,10 +21,11 @@ var WSHelper = {
       sock.send(JSON.stringify({eventId: eventId}));
     };
     sock.onclose = function() {
-      if (reconnect) {
-        if (EventStore.eventIsLive()) {
-          setTimeout(() => WSHelper.connect(eventId, callback), 5000);
-        }
+      if (reconnect && EventStore.eventIsLive()) {
+        setTimeout(() => {
+          PostsStore.init(eventId);
+          WSHelper.connect(eventId, callback);
+        }, 5000);
       }
     };
   },
