@@ -1,5 +1,5 @@
 
-var R = require('ramda')
+var R = require('ramda');
 var assign = require('object-assign');
 var EventEmitter = require('events').EventEmitter;
 var AppDispatcher = require('../dispatchers/appDispatcher');

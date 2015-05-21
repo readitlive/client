@@ -1,5 +1,5 @@
 var React = require('react');
-var {Link} = require('react-router');
+var {Link, Navigation} = require('react-router');
 
 var UserBox = require('./UserBox');
 var ViewerCountStore = require('../stores/ViewerCountStore');
@@ -8,6 +8,7 @@ var EventActions = require('../actions/EventActions');
 require('./__styles__/TopBar.styl');
 
 var TopBar = React.createClass({
+  mixins: [Navigation],
   propTypes: {
     event: React.PropTypes.object,
     user: React.PropTypes.object,
@@ -41,6 +42,12 @@ var TopBar = React.createClass({
     EventActions.toggleLive(this.props.event);
   },
 
+  deleteEvent() {
+    if (window.confirm('Are you sure you want to delete this event?')) {
+      EventActions.delete(this.props.event, this.transitionTo.bind(this, 'events'));
+    }
+  },
+
   toggleMenu() {
     this.setState({liveMenu: !this.state.liveMenu});
   },
@@ -49,6 +56,7 @@ var TopBar = React.createClass({
     var menu = (
       <div className="nav-dropdown flex-box">
         <div onClick={this.toggleLive} className="hyperbutton">{this.props.event.eventIsLive ? 'End Event' : 'Start Event'}</div>
+        <div onClick={this.deleteEvent} className="hyperbutton">Delete Event</div>
       </div>
     );
 

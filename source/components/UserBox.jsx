@@ -1,4 +1,5 @@
 var React = require('react');
+var {Navigation} = require('react-router')
 
 var LoginStore = require('../stores/LoginStore');
 var LoginActions = require('../actions/LoginActions');
@@ -18,6 +19,7 @@ var UserBox = React.createClass({
 });
 
 var Login = React.createClass({
+  mixins: [Navigation],
   getInitialState() {
     return {
       expanded: false,
@@ -115,6 +117,7 @@ var Login = React.createClass({
                 Cancel
             </div>
           </div>
+        {/*<button onClick={() => window.location.pathname = '/api/auth/facebook'} className="btn-facebook">Login with Facebook</button>*/}
           {this.state.errorMessage && <span style={{color: '#FF9494'}}>{this.state.errorMessage}</span>}
         </div>
       );

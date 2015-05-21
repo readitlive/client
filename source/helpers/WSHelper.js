@@ -1,10 +1,10 @@
 var SockJS = require('sockjs-client');
 var PostsStore = require('../stores/PostsStore');
 var EventStore = require('../stores/EventStore');
+var LoginStore = require('../stores/LoginStore');
 
 var sock;
 var reconnect;
-
 
 var WSHelper = {
   connect(eventId, callback) {
@@ -18,7 +18,10 @@ var WSHelper = {
       console.log('socket error: ', err);
     };
     sock.onopen = function() {
-      sock.send(JSON.stringify({eventId: eventId}));
+      sock.send(JSON.stringify({
+        eventId: eventId,
+        userId: LoginStore.getCurrentUser() && LoginStore.getCurrentUser()._id
+      }));
     };
     sock.onclose = function() {
       if (reconnect && EventStore.eventIsLive()) {

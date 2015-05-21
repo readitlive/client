@@ -17,6 +17,9 @@ var EventActions = {
       actionType: constants.EVENT_LIVE_TOGGLE,
       event: event
     });
+  },
+  delete(event, callback) {
+    API('DELETE', 'event/' + event._id, event, callback);
   }
 };
 
